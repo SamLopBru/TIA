@@ -1,0 +1,236 @@
+[Mon Sep 29 17:22:02 202] - new black
+[Mon Sep 29 17:22:06 202] - move LLMM
+[Mon Sep 29 17:23:00 202] - new black
+[Mon Sep 29 17:23:03 202] - move LLMM
+[Mon Sep 29 17:23:32 202] - print
+[Mon Sep 29 17:23:57 202] - move KKRR
+[Mon Sep 29 17:48:55 202] - new white
+[Mon Sep 29 17:49:03 202] - black JJ
+[Mon Sep 29 17:49:13 202] - print
+[Mon Sep 29 17:49:15 202] - next
+[Mon Sep 29 17:49:37 202] - print
+[Mon Sep 29 17:49:48 202] - black JIKJ
+[Mon Sep 29 17:49:50 202] - print
+[Mon Sep 29 17:49:55 202] - next
+[Mon Sep 29 17:50:07 202] - print
+[Mon Sep 29 17:50:22 202] - black JHJL
+[Mon Sep 29 17:50:25 202] - print
+[Mon Sep 29 17:50:31 202] - next
+[Mon Sep 29 17:50:35 202] - print
+[Mon Sep 29 17:50:44 202] - help
+[Mon Sep 29 17:51:06 202] - move jkjg
+[Mon Sep 29 17:51:36 202] - new black
+[Mon Sep 29 17:51:38 202] - move llmm
+[Mon Sep 29 17:52:09 202] - new blck
+[Mon Sep 29 17:52:11 202] - new black
+[Mon Sep 29 17:52:14 202] - move LLMM
+[Mon Sep 29 17:52:27 202] - print
+[Mon Sep 29 17:52:45 202] - move KKNN
+[Mon Sep 29 17:52:57 202] - print
+[Mon Sep 29 17:53:10 202] - move OOPP
+[Mon Sep 29 17:53:20 202] - print
+[Mon Sep 29 17:53:46 202] - move ABCC
+[Mon Sep 29 17:53:58 202] - print
+[Mon Sep 29 18:06:19 202] - new black
+[Mon Sep 29 18:06:22 202] - move LLMM
+[Mon Sep 29 18:06:47 202] - print
+[Mon Sep 29 18:06:59 202] - move JJ
+[Mon Sep 29 18:07:19 202] - print
+[Mon Sep 29 18:07:27 202] - exit
+[Mon Sep 29 18:12:16 202] - new black
+[Mon Sep 29 18:12:21 202] - move AABB
+[Mon Sep 29 18:12:28 202] - print
+[Mon Sep 29 18:12:34 202] - move CCDD
+[Mon Sep 29 18:12:44 202] - print
+[Mon Sep 29 18:12:52 202] - move EEFF
+[Mon Sep 29 18:12:58 202] - exit
+[Mon Sep 29 18:13:04 202] - new white
+[Mon Sep 29 18:13:06 202] - move JJ
+[Mon Sep 29 18:13:10 202] - print
+[Mon Sep 29 18:13:18 202] - move IIKK
+[Mon Sep 29 18:13:25 202] - move HHLL
+[Mon Sep 29 18:13:30 202] - print
+[Mon Sep 29 18:13:37 202] - move MMGG
+[Mon Sep 29 18:13:42 202] - exit
+[Mon Sep 29 18:18:52 202] - new black
+[Mon Sep 29 18:18:56 202] - move AABB
+[Mon Sep 29 18:19:06 202] - move AABB
+[Mon Sep 29 18:21:44 202] - new black
+[Mon Sep 29 18:21:46 202] - move AABB
+[Mon Sep 29 18:21:54 202] - print
+[Mon Sep 29 18:22:04 202] - move CCDD
+[Mon Sep 29 18:22:11 202] - print
+[Mon Sep 29 18:22:24 202] - print DD
+[Mon Sep 29 18:22:27 202] - move DD
+[Mon Sep 29 18:22:31 202] - print
+[Mon Sep 29 18:22:39 202] - move EEFF
+[Mon Sep 29 18:22:42 202] - exit
+[Thu Oct  2 09:58:51 202] - new black
+[Thu Oct  2 09:58:55 202] - white LLMM
+[Thu Oct  2 09:58:57 202] - next
+[Thu Oct  2 09:59:02 202] - next
+[Thu Oct  2 09:59:04 202] - next
+[Thu Oct  2 09:59:11 202] - print
+[Thu Oct  2 10:10:22 202] - new black
+[Thu Oct  2 10:10:25 202] - white LLMM
+[Thu Oct  2 10:10:26 202] - next
+[Thu Oct  2 10:12:25 202] - new black
+[Thu Oct  2 10:12:29 202] - white LLMM
+[Thu Oct  2 10:12:30 202] - next
+[Thu Oct  2 10:13:18 202] - new black
+[Thu Oct  2 10:13:21 202] - white LLMM
+[Thu Oct  2 10:13:22 202] - next
+[Thu Oct  2 10:14:25 202] - new black
+[Thu Oct  2 10:14:27 202] - next
+[Thu Oct  2 10:18:03 202] - new black
+[Thu Oct  2 10:18:06 202] - white LLMM
+[Thu Oct  2 10:18:07 202] - next
+[Thu Oct  2 10:21:21 202] - new black
+[Thu Oct  2 10:21:24 202] - white LLMM
+[Thu Oct  2 10:21:26 202] - next
+[Thu Oct  2 10:21:58 202] - new black
+[Thu Oct  2 10:22:01 202] - white LLMM
+[Thu Oct  2 10:22:02 202] - next
+[Thu Oct  2 10:24:08 202] - new black
+[Thu Oct  2 10:24:10 202] - white LLMM
+[Thu Oct  2 10:24:11 202] - next
+[Thu Oct  2 10:24:14 202] - print
+[Thu Oct  2 10:24:22 202] - white KKNN
+[Thu Oct  2 10:24:23 202] - next
+[Thu Oct  2 10:24:32 202] - print
+[Thu Oct  2 10:25:16 202] - new black
+[Thu Oct  2 10:25:19 202] - white LLMM
+[Thu Oct  2 10:25:20 202] - next
+[Thu Oct  2 10:25:35 202] - new black
+[Thu Oct  2 10:25:38 202] - white LLMM
+[Thu Oct  2 10:25:40 202] - next
+[Thu Oct  2 10:28:30 202] - new black
+[Thu Oct  2 10:28:34 202] - white MMLL
+[Thu Oct  2 10:28:36 202] - next
+[Thu Oct  2 10:28:41 202] - print
+[Thu Oct  2 10:28:51 202] - move NNOO
+[Thu Oct  2 10:28:54 202] - print
+[Thu Oct  2 10:29:24 202] - new black
+[Thu Oct  2 10:29:27 202] - move LLMM
+[Thu Oct  2 10:29:41 202] - print
+[Thu Oct  2 10:29:50 202] - move NNOO
+[Thu Oct  2 10:30:03 202] - print
+[Thu Oct  2 10:30:19 202] - move PPQQ
+[Thu Oct  2 10:30:22 202] - exit
+[Thu Oct  2 10:45:18 202] - new black
+[Thu Oct  2 10:45:20 202] - move LLMM
+[Thu Oct  2 10:50:44 202] - new black
+[Thu Oct  2 10:50:47 202] - move LLMM
+[Thu Oct  2 10:53:54 202] - new black
+[Thu Oct  2 10:53:57 202] - move LLMM
+[Thu Oct  2 10:55:48 202] - new black
+[Thu Oct  2 10:55:50 202] - move LLMM
+[Thu Oct  2 10:55:52 202] - print
+[Thu Oct  2 10:56:03 202] - move KKNN
+[Thu Oct  2 10:56:07 202] - print
+[Thu Oct  2 10:56:15 202] - exit
+[Thu Oct  2 11:19:06 202] - new black
+[Thu Oct  2 11:19:08 202] - move LLMM
+[Thu Oct  2 11:19:09 202] - print
+[Thu Oct  2 11:19:19 202] - move KKII
+[Thu Oct  2 11:19:21 202] - print
+[Thu Oct  2 11:19:55 202] - move KNMN
+[Thu Oct  2 11:19:58 202] - print
+[Thu Oct  2 11:20:04 202] - move JJJJ
+[Thu Oct  2 11:20:06 202] - print
+[Fri Oct  3 10:57:07 202] - new black
+[Fri Oct  3 10:57:10 202] - print
+[Fri Oct  3 10:57:14 202] - move LLMM
+[Fri Oct  3 10:57:16 202] - print
+[Fri Oct  3 10:57:27 202] - move NPNQ
+[Fri Oct  3 10:57:29 202] - print
+[Fri Oct  3 10:57:41 202] - move NNNO
+[Fri Oct  3 10:57:43 202] - print
+[Fri Oct  3 10:58:03 202] - move NLNK
+[Fri Oct  3 10:58:06 202] - print
+[Fri Oct  3 10:58:15 202] - move NRNS
+[Fri Oct  3 10:58:18 202] - exit
+[Fri Oct  3 16:08:02 202] - new black
+[Fri Oct  3 16:08:06 202] - move LLMM
+[Fri Oct  3 16:08:07 202] - print
+[Fri Oct  3 16:09:10 202] - move
+[Fri Oct  3 16:09:31 202] - new black
+[Fri Oct  3 16:09:35 202] - print
+[Fri Oct  3 16:09:42 202] - move HHII
+[Fri Oct  3 16:09:44 202] - print
+[Fri Oct  3 16:09:53 202] - move HGFF
+[Fri Oct  3 16:09:55 202] - print
+[Fri Oct  3 16:10:03 202] - eexit
+[Fri Oct  3 16:10:05 202] - exit
+[Fri Oct  3 16:21:36 202] - depth 4
+[Fri Oct  3 16:21:40 202] - new black
+[Fri Oct  3 16:21:44 202] - move LLMM
+[Fri Oct  3 16:21:47 202] - print
+[Fri Oct  3 16:22:02 202] - move KKII
+[Fri Oct  3 16:22:04 202] - print
+[Fri Oct  3 16:22:16 202] - move NNOO
+[Fri Oct  3 16:22:18 202] - print
+[Fri Oct  3 16:22:29 202] - exit
+[Fri Oct  3 16:22:35 202] - new black
+[Fri Oct  3 16:22:38 202] - move BBAA
+[Fri Oct  3 16:22:43 202] - print
+[Fri Oct  3 16:22:49 202] - exit
+[Fri Oct  3 16:23:25 202] - new black
+[Fri Oct  3 16:23:27 202] - move LLMM
+[Fri Oct  3 16:23:38 202] - print
+[Fri Oct  3 16:23:50 202] - move AABB
+[Fri Oct  3 16:24:08 202] - print
+[Fri Oct  3 16:24:33 202] - move KKEE
+[Fri Oct  3 16:24:47 202] - print
+[Fri Oct  3 16:25:10 202] - exit
+[Fri Oct  3 16:40:47 202] - new black
+[Fri Oct  3 16:41:17 202] - çnew black
+[Fri Oct  3 16:41:20 202] - 
+[Fri Oct  3 16:41:23 202] - new black
+[Fri Oct  3 16:43:09 202] - new black
+[Fri Oct  3 16:43:19 202] - 
+[Fri Oct  3 16:43:19 202] - 
+[Fri Oct  3 16:43:23 202] - move LLMM
+[Fri Oct  3 16:44:21 202] - new black
+[Fri Oct  3 16:44:23 202] - move LLMM
+[Fri Oct  3 16:45:16 202] - new black
+[Fri Oct  3 16:45:18 202] - move LLMM
+[Fri Oct  3 16:45:29 202] - print
+[Fri Oct  3 16:45:54 202] - move KKLJ
+[Fri Oct  3 16:46:13 202] - print
+[Fri Oct  3 16:46:16 202] - exit
+[Fri Oct  3 16:49:56 202] - new black
+[Fri Oct  3 16:50:00 202] - print
+[Fri Oct  3 16:50:04 202] - move SSKK
+[Fri Oct  3 16:50:15 202] - print
+[Fri Oct  3 16:50:25 202] - exit
+[Fri Oct  3 17:38:41 202] - new black
+[Fri Oct  3 17:38:42 202] - print
+[Fri Oct  3 17:38:54 202] - move AABB
+[Fri Oct  3 17:39:03 202] - print
+[Fri Oct  3 17:39:15 202] - exit
+[Fri Oct  3 18:54:48 202] - new black
+[Fri Oct  3 18:54:59 202] - print
+[Fri Oct  3 18:55:01 202] - move LLMM
+[Fri Oct  3 18:55:10 202] - print
+[Fri Oct  3 18:55:19 202] - move NNOO
+[Fri Oct  3 18:55:30 202] - print
+[Fri Oct  3 18:56:17 202] - new black
+[Fri Oct  3 18:56:19 202] - move LLMM
+[Fri Oct  3 18:56:25 202] - print
+[Fri Oct  3 21:11:22 202] - new black
+[Fri Oct  3 21:11:23 202] - print
+[Fri Oct  3 21:11:27 202] - move LLMM
+[Fri Oct  3 21:11:29 202] - print
+[Fri Oct  3 21:11:46 202] - move AABB
+[Fri Oct  3 21:12:11 202] - print
+[Fri Oct  3 21:12:24 202] - new black
+[Fri Oct  3 21:12:26 202] - print
+[Fri Oct  3 21:12:28 202] - move AABB
+[Fri Oct  3 21:12:45 202] - print
+[Fri Oct  3 21:13:03 202] - exit
+[Fri Oct  3 21:13:06 202] - new black
+[Fri Oct  3 21:13:10 202] - move LLMM
+[Fri Oct  3 21:13:12 202] - print
+[Fri Oct  3 21:14:09 202] - new black
+[Fri Oct  3 21:14:14 202] - move LLMM
