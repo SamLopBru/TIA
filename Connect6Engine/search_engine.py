@@ -42,6 +42,16 @@ class SearchEngine():
         if depth == 0:
             return (self.evaluate_board(board, last_move), None)
 
+        # inside alpha_beta_pruning, before generate_candidate_moves
+        threats = self.immediate_threats(board, Defines.BLACK if maximizing_player else Defines.WHITE)
+        if len(threats) > 1:
+            # create pseudo-moves (StoneMove objects) from threats and return early
+            best_threat, second_threat = threats[0], threats[1]
+            best_move = StoneMove()
+            best_move.positions = [StonePosition(best_threat[0], best_threat[1]),StonePosition(second_threat[0], second_threat[1])]
+
+            return (Defines.MAXINT // 2, best_move)
+
         # generate StoneMove candidates
         singles = self.generate_candidate_moves(board, last_move, max_candidates)
         candidates = generate_candidate_pairs(singles, max_pairs=10)  # returns StoneMoves
@@ -154,7 +164,96 @@ class SearchEngine():
         )
         
         return sorted_moves[:max_candidates]
-     
+    
+    def pattern_evaluate(self, board, coords):
+        """Tactical pattern-based evaluation (existing logic extracted)."""
+        black_score = 0
+        white_score = 0
+        directions = [(1,0), (0,1), (1,1), (1,-1)]
+
+        pattern_weights = {
+            (6, 0): 100000, (5, 2): 50000, (5, 1): 20000,
+            (4, 2): 10000, (4, 1): 5000, (3, 2): 1000,
+            (3, 1): 500, (2, 2): 50, (2, 1): 25,
+        }
+
+    
+        for (x, y) in coords:
+            color = board[x][y]
+            if color == Defines.NOSTONE:
+                continue
+
+            for dx, dy in directions:
+                count, open_ends = 1, 0
+
+                nx, ny = x + dx, y + dy
+                while 0 <= nx < Defines.GRID_NUM and 0 <= ny < Defines.GRID_NUM and board[nx][ny] == color:
+                    count += 1
+                    nx += dx
+                    ny += dy
+                if 0 <= nx < Defines.GRID_NUM and 0 <= ny < Defines.GRID_NUM and board[nx][ny] == Defines.NOSTONE:
+                    open_ends += 1
+
+                nx, ny = x - dx, y - dy
+                while 0 <= nx < Defines.GRID_NUM and 0 <= ny < Defines.GRID_NUM and board[nx][ny] == color:
+                    count += 1
+                    nx -= dx
+                    ny -= dy
+                if 0 <= nx < Defines.GRID_NUM and 0 <= ny < Defines.GRID_NUM and board[nx][ny] == Defines.NOSTONE:
+                    open_ends += 1
+
+                val = pattern_weights.get((count, open_ends), 0)
+                if color == Defines.BLACK:
+                    black_score += val
+                else:
+                    white_score += val
+
+        return black_score - white_score
+    
+    def influence_evaluate(self, board):
+        weights = [2**12, 2**11, 2**10, 2**9, 2**8]  # same = 1..5
+        empty_weight = 2
+        directions = [(1, 0), (0, 1), (1, 1), (1, -1)]
+        total_score = 0
+
+        for x in range(Defines.GRID_NUM):
+            for y in range(Defines.GRID_NUM):
+                color = board[x][y]
+                if color == Defines.NOSTONE:
+                    continue
+
+                color_sign = 1 if color == Defines.BLACK else -1
+
+                for dx, dy in directions:
+                    line = []
+                    # Collect up to 11 cells (5 before, current, 5 after)
+                    for step in range(-5, 6):
+                        nx, ny = x + step * dx, y + step * dy
+                        if 0 <= nx < Defines.GRID_NUM and 0 <= ny < Defines.GRID_NUM:
+                            line.append(board[nx][ny])
+
+                    # Slide a 6-cell window along the 11-cell line
+                    for i in range(len(line) - 5):
+                        window = line[i:i+6]
+
+                        # Skip if blocked (both colors in window)
+                        if Defines.BLACK in window and Defines.WHITE in window:
+                            continue
+
+                        same = window.count(color)
+                        empty = window.count(Defines.NOSTONE)
+
+                        # Guard against invalid indices
+                        if same == 0:
+                            continue
+                        elif same >= 6:
+                            # completed 6-in-a-row → strong win bonus
+                            total_score += color_sign * 1000000
+                        else:
+                            total_score += color_sign * weights[same - 1] * (empty_weight ** empty)
+
+        return total_score
+
     def evaluate_board(self, board: list[list[int]], last_positions):
         """
         Naive static evaluation function for Connect6. Only evaluates the lines 
@@ -200,145 +299,41 @@ class SearchEngine():
             print("⚠️ Unexpected type for last_positions:", type(last_positions))
             return 0
 
-        # --- heuristic evaluation ---
-        black_score = 0
-        white_score = 0
-        directions = [(1,0), (0,1), (1,1), (1,-1)]
+        influence_score = self.influence_evaluate(board)
+        pattern_score = self.pattern_evaluate(board, coords)
+        return 0.7 * influence_score + 0.3 * pattern_score
 
-        pattern_weights = {
-            (6, 0): 100000,   # win
-            (5, 2): 50000,    # open five
-            (5, 1): 20000,    # semi-open five
-            (4, 2): 10000,
-            (4, 1): 5000,
-            (3, 2): 1000,
-            (3, 1): 500,
-            (2, 2): 50,
-            (2, 1): 25,
-        }
-
-        for (x, y) in coords:
-            color = board[x][y]
-            if color == Defines.NOSTONE:
-                continue
-
-            for dx, dy in directions:
-                count, open_ends = 1, 0
-
-                # forward
-                nx, ny = x + dx, y + dy
-                while 0 <= nx < Defines.GRID_NUM and 0 <= ny < Defines.GRID_NUM and board[nx][ny] == color:
-                    count += 1
-                    nx += dx
-                    ny += dy
-                if 0 <= nx < Defines.GRID_NUM and 0 <= ny < Defines.GRID_NUM and board[nx][ny] == Defines.NOSTONE:
-                    open_ends += 1
-
-                # backward
-                nx, ny = x - dx, y - dy
-                while 0 <= nx < Defines.GRID_NUM and 0 <= ny < Defines.GRID_NUM and board[nx][ny] == color:
-                    count += 1
-                    nx -= dx
-                    ny -= dy
-                if 0 <= nx < Defines.GRID_NUM and 0 <= ny < Defines.GRID_NUM and board[nx][ny] == Defines.NOSTONE:
-                    open_ends += 1
-
-                score_val = pattern_weights.get((count, open_ends), 0)
-                if color == Defines.BLACK:
-                    black_score += score_val
-                else:
-                    white_score += score_val
-
-        return black_score - white_score
-    
-    def minimax(self, board, depth, maximizing_player, last_move, max_candidates=10): #not in use
+    def immediate_threats(self, board, color):
         """
-        Naive Minimax search without pruning.
-
-        Args:
-            board: 2D board (GRID_NUM x GRID_NUM)
-            depth: remaining search depth to explore
-            maximizing_player: True if Black's turn (MAX), False if White's turn (MIN)
-            last_move: the last move(s) played (needed for win/draw checks)
-            max_candidates: limit candidate positions to avoid explosion
-
-        Returns:
-            (score, move) -> numeric evaluation and the selected move(s)
+        Detect immediate winning or blocking threats.
+        Returns a list of (x, y) positions that either
+        complete 6-in-a-row or block the opponent's imminent win.
         """
+        threats = []
+        opponent = Defines.BLACK if color == Defines.WHITE else Defines.WHITE
 
-        # --- Check for terminal cases or end of depth ---
-        result = check_game_result(board, last_move)
-        if result == Defines.BLACK:
-            return (Defines.MAXINT, None)
-        elif result == Defines.WHITE:
-            return (Defines.MININT, None)
-        elif result == Defines.DRAW:
-            return (0, None)
+        for x in range(Defines.GRID_NUM):
+            for y in range(Defines.GRID_NUM):
+                if board[x][y] != Defines.NOSTONE:
+                    continue
 
-        if depth == 0:
-            return (self.evaluate_board(board, last_move), None)
+                # --- Simulate placing a stone for the current player ---
+                board[x][y] = color
+                if check_game_result(board, [(x, y)]) == color:
+                    # this move wins immediately
+                    threats.append((x, y))
+                    board[x][y] = Defines.NOSTONE
+                    continue
+                board[x][y] = Defines.NOSTONE
 
-        # --- Candidate move generation ---
-        candidates = self.generate_naive_moves(board, max_candidates)
+                # --- Simulate opponent placing a stone (check defense) ---
+                board[x][y] = opponent
+                if check_game_result(board, [(x, y)]) == opponent:
+                    # opponent could win here next move → must block
+                    threats.append((x, y))
+                board[x][y] = Defines.NOSTONE
 
-        if len(candidates) < 2:
-            return (self.evaluate_board(board, last_move), None)
-
-        best_move = None
-
-        if maximizing_player:  # Black tries to maximize score
-            max_eval = -float("inf")
-
-            for i in range(len(candidates)):
-                for j in range(i + 1, len(candidates)):
-                    move1, move2 = candidates[i], candidates[j]
-
-                    # Apply moves
-                    board[move1[0]][move1[1]] = Defines.BLACK
-                    board[move2[0]][move2[1]] = Defines.BLACK
-
-                    eval_score, _ = self.minimax(
-                        board, 
-                        depth - 1, 
-                        False, 
-                        [StoneMove(move1[0], move1[1]), StoneMove(move2[0], move2[1])]
-                    )
-
-                    # Undo moves
-                    board[move1[0]][move1[1]] = Defines.NOSTONE
-                    board[move2[0]][move2[1]] = Defines.NOSTONE
-
-                    if eval_score > max_eval:
-                        max_eval = eval_score
-                        best_move = (move1, move2)
-
-            return (max_eval, best_move)
-
-        else:  # White tries to minimize score
-            min_eval = float("inf")
-
-            for i in range(len(candidates)):
-                for j in range(i + 1, len(candidates)):
-                    move1, move2 = candidates[i], candidates[j]
-
-                    board[move1[0]][move1[1]] = Defines.WHITE
-                    board[move2[0]][move2[1]] = Defines.WHITE
-
-                    eval_score, _ = minimax(
-                        board, 
-                        depth - 1, 
-                        True, 
-                        [StoneMove(move1[0], move1[1]), StoneMove(move2[0], move2[1])]
-                    )
-
-                    board[move1[0]][move1[1]] = Defines.NOSTONE
-                    board[move2[0]][move2[1]] = Defines.NOSTONE
-
-                    if eval_score < min_eval:
-                        min_eval = eval_score
-                        best_move = (move1, move2)
-
-            return (min_eval, best_move)
+        return threats
 
 def flush_output():
     import sys
