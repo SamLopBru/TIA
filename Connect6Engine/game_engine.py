@@ -158,7 +158,6 @@ class GameEngine:
             bestMove.positions[1].x = pos2.x
             bestMove.positions[1].y = pos2.y
             bestMove.color = ourColor
-            print("aquí")
             self.initialize = True
             return True
 
