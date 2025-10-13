@@ -42,7 +42,7 @@ class SearchEngine():
         if depth == 0:
             return (self.evaluate_board(board, last_move), None)
 
-        # inside alpha_beta_pruning, before generate_candidate_moves
+        
         threats = self.immediate_threats(board, Defines.BLACK if maximizing_player else Defines.WHITE)
         if len(threats) > 1:
             # create pseudo-moves (StoneMove objects) from threats and return early
@@ -255,11 +255,7 @@ class SearchEngine():
         return total_score
 
     def evaluate_board(self, board: list[list[int]], last_positions):
-        """
-        Naive static evaluation function for Connect6. Only evaluates the lines 
-        passing through the latest stones
-        """
-
+        
         # terminal states
         result = check_game_result(board, last_positions)
         if result == Defines.BLACK:  return Defines.MAXINT
