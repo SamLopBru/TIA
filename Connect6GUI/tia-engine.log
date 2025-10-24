@@ -16966,3 +16966,1058 @@
 [Fri Oct  3 21:25:00 202] - black ADAE
 [Fri Oct  3 21:25:00 202] - white ABBA
 [Fri Oct  3 21:25:00 202] - next
+[Sun Oct 19 15:48:41 202] - name
+[Sun Oct 19 15:48:41 202] - depth 4
+[Sun Oct 19 15:48:41 202] - vcf
+[Sun Oct 19 15:48:44 202] - name
+[Sun Oct 19 15:48:44 202] - depth 4
+[Sun Oct 19 15:48:44 202] - vcf
+[Sun Oct 19 15:48:44 202] - new xxx
+[Sun Oct 19 15:48:44 202] - next
+[Sun Oct 19 15:48:46 202] - new xxx
+[Sun Oct 19 15:48:46 202] - black JJJJ
+[Sun Oct 19 15:48:46 202] - white IJHJ
+[Sun Oct 19 15:48:46 202] - next
+[Sun Oct 19 15:48:48 202] - new xxx
+[Sun Oct 19 15:48:48 202] - black JJJJ
+[Sun Oct 19 15:48:48 202] - white IJHJ
+[Sun Oct 19 15:48:48 202] - black IKSA
+[Sun Oct 19 15:48:48 202] - white HLIL
+[Sun Oct 19 15:48:48 202] - next
+[Sun Oct 19 15:48:50 202] - new xxx
+[Sun Oct 19 15:48:50 202] - black JJJJ
+[Sun Oct 19 15:48:50 202] - white IJHJ
+[Sun Oct 19 15:48:50 202] - black IKSA
+[Sun Oct 19 15:48:50 202] - white HLIL
+[Sun Oct 19 15:48:50 202] - black HKRA
+[Sun Oct 19 15:48:50 202] - white QARB
+[Sun Oct 19 15:48:50 202] - next
+[Sun Oct 19 15:48:51 202] - new xxx
+[Sun Oct 19 15:48:51 202] - black JJJJ
+[Sun Oct 19 15:48:51 202] - white IJHJ
+[Sun Oct 19 15:48:51 202] - black IKSA
+[Sun Oct 19 15:48:51 202] - white HLIL
+[Sun Oct 19 15:48:51 202] - black HKRA
+[Sun Oct 19 15:48:51 202] - white QARB
+[Sun Oct 19 15:48:51 202] - black SBPB
+[Sun Oct 19 15:48:51 202] - white QBOB
+[Sun Oct 19 15:48:51 202] - next
+[Sun Oct 19 15:48:53 202] - new xxx
+[Sun Oct 19 15:48:53 202] - black JJJJ
+[Sun Oct 19 15:48:53 202] - white IJHJ
+[Sun Oct 19 15:48:53 202] - black IKSA
+[Sun Oct 19 15:48:53 202] - white HLIL
+[Sun Oct 19 15:48:53 202] - black HKRA
+[Sun Oct 19 15:48:53 202] - white QARB
+[Sun Oct 19 15:48:53 202] - black SBPB
+[Sun Oct 19 15:48:53 202] - white QBOB
+[Sun Oct 19 15:48:53 202] - black SCPA
+[Sun Oct 19 15:48:53 202] - white SDOA
+[Sun Oct 19 15:48:53 202] - next
+[Sun Oct 19 15:48:56 202] - new xxx
+[Sun Oct 19 15:48:56 202] - black JJJJ
+[Sun Oct 19 15:48:56 202] - white IJHJ
+[Sun Oct 19 15:48:56 202] - black IKSA
+[Sun Oct 19 15:48:56 202] - white HLIL
+[Sun Oct 19 15:48:56 202] - black HKRA
+[Sun Oct 19 15:48:56 202] - white QARB
+[Sun Oct 19 15:48:56 202] - black SBPB
+[Sun Oct 19 15:48:56 202] - white QBOB
+[Sun Oct 19 15:48:56 202] - black SCPA
+[Sun Oct 19 15:48:56 202] - white SDOA
+[Sun Oct 19 15:48:56 202] - black RCOC
+[Sun Oct 19 15:48:56 202] - white GLEL
+[Sun Oct 19 15:48:56 202] - next
+[Sun Oct 19 15:48:58 202] - new xxx
+[Sun Oct 19 15:48:58 202] - black JJJJ
+[Sun Oct 19 15:48:58 202] - white IJHJ
+[Sun Oct 19 15:48:58 202] - black IKSA
+[Sun Oct 19 15:48:58 202] - white HLIL
+[Sun Oct 19 15:48:58 202] - black HKRA
+[Sun Oct 19 15:48:58 202] - white QARB
+[Sun Oct 19 15:48:58 202] - black SBPB
+[Sun Oct 19 15:48:58 202] - white QBOB
+[Sun Oct 19 15:48:58 202] - black SCPA
+[Sun Oct 19 15:48:58 202] - white SDOA
+[Sun Oct 19 15:48:58 202] - black RCOC
+[Sun Oct 19 15:48:58 202] - white GLEL
+[Sun Oct 19 15:48:58 202] - black QCPC
+[Sun Oct 19 15:48:58 202] - white FLNC
+[Sun Oct 19 15:48:58 202] - next
+[Sun Oct 19 15:49:00 202] - new xxx
+[Sun Oct 19 15:49:00 202] - black JJJJ
+[Sun Oct 19 15:49:00 202] - white IJHJ
+[Sun Oct 19 15:49:00 202] - black IKSA
+[Sun Oct 19 15:49:00 202] - white HLIL
+[Sun Oct 19 15:49:00 202] - black HKRA
+[Sun Oct 19 15:49:00 202] - white QARB
+[Sun Oct 19 15:49:00 202] - black SBPB
+[Sun Oct 19 15:49:00 202] - white QBOB
+[Sun Oct 19 15:49:00 202] - black SCPA
+[Sun Oct 19 15:49:00 202] - white SDOA
+[Sun Oct 19 15:49:00 202] - black RCOC
+[Sun Oct 19 15:49:00 202] - white GLEL
+[Sun Oct 19 15:49:00 202] - black QCPC
+[Sun Oct 19 15:49:00 202] - white FLNC
+[Sun Oct 19 15:49:00 202] - black RDQD
+[Sun Oct 19 15:49:00 202] - white PDQE
+[Sun Oct 19 15:49:00 202] - next
+[Sun Oct 19 15:49:01 202] - new xxx
+[Sun Oct 19 15:49:01 202] - black JJJJ
+[Sun Oct 19 15:49:01 202] - white IJHJ
+[Sun Oct 19 15:49:01 202] - black IKSA
+[Sun Oct 19 15:49:01 202] - white HLIL
+[Sun Oct 19 15:49:01 202] - black HKRA
+[Sun Oct 19 15:49:01 202] - white QARB
+[Sun Oct 19 15:49:01 202] - black SBPB
+[Sun Oct 19 15:49:01 202] - white QBOB
+[Sun Oct 19 15:49:01 202] - black SCPA
+[Sun Oct 19 15:49:01 202] - white SDOA
+[Sun Oct 19 15:49:01 202] - black RCOC
+[Sun Oct 19 15:49:01 202] - white GLEL
+[Sun Oct 19 15:49:01 202] - black QCPC
+[Sun Oct 19 15:49:01 202] - white FLNC
+[Sun Oct 19 15:49:01 202] - black RDQD
+[Sun Oct 19 15:49:01 202] - white PDQE
+[Sun Oct 19 15:49:01 202] - black ODND
+[Sun Oct 19 15:49:01 202] - white MDOE
+[Sun Oct 19 15:49:01 202] - next
+[Sun Oct 19 15:49:03 202] - new xxx
+[Sun Oct 19 15:49:03 202] - black JJJJ
+[Sun Oct 19 15:49:03 202] - white IJHJ
+[Sun Oct 19 15:49:03 202] - black IKSA
+[Sun Oct 19 15:49:03 202] - white HLIL
+[Sun Oct 19 15:49:03 202] - black HKRA
+[Sun Oct 19 15:49:03 202] - white QARB
+[Sun Oct 19 15:49:03 202] - black SBPB
+[Sun Oct 19 15:49:03 202] - white QBOB
+[Sun Oct 19 15:49:03 202] - black SCPA
+[Sun Oct 19 15:49:03 202] - white SDOA
+[Sun Oct 19 15:49:03 202] - black RCOC
+[Sun Oct 19 15:49:03 202] - white GLEL
+[Sun Oct 19 15:49:03 202] - black QCPC
+[Sun Oct 19 15:49:03 202] - white FLNC
+[Sun Oct 19 15:49:03 202] - black RDQD
+[Sun Oct 19 15:49:03 202] - white PDQE
+[Sun Oct 19 15:49:03 202] - black ODND
+[Sun Oct 19 15:49:03 202] - white MDOE
+[Sun Oct 19 15:49:03 202] - black PESE
+[Sun Oct 19 15:49:03 202] - white PFSF
+[Sun Oct 19 15:49:03 202] - next
+[Sun Oct 19 15:49:05 202] - new xxx
+[Sun Oct 19 15:49:05 202] - black JJJJ
+[Sun Oct 19 15:49:05 202] - white IJHJ
+[Sun Oct 19 15:49:05 202] - black IKSA
+[Sun Oct 19 15:49:05 202] - white HLIL
+[Sun Oct 19 15:49:05 202] - black HKRA
+[Sun Oct 19 15:49:05 202] - white QARB
+[Sun Oct 19 15:49:05 202] - black SBPB
+[Sun Oct 19 15:49:05 202] - white QBOB
+[Sun Oct 19 15:49:05 202] - black SCPA
+[Sun Oct 19 15:49:05 202] - white SDOA
+[Sun Oct 19 15:49:05 202] - black RCOC
+[Sun Oct 19 15:49:05 202] - white GLEL
+[Sun Oct 19 15:49:05 202] - black QCPC
+[Sun Oct 19 15:49:05 202] - white FLNC
+[Sun Oct 19 15:49:05 202] - black RDQD
+[Sun Oct 19 15:49:05 202] - white PDQE
+[Sun Oct 19 15:49:05 202] - black ODND
+[Sun Oct 19 15:49:05 202] - white MDOE
+[Sun Oct 19 15:49:05 202] - black PESE
+[Sun Oct 19 15:49:05 202] - white PFSF
+[Sun Oct 19 15:49:05 202] - black REQG
+[Sun Oct 19 15:49:05 202] - white QHRF
+[Sun Oct 19 15:49:05 202] - next
+[Sun Oct 19 15:50:09 202] - name
+[Sun Oct 19 15:50:09 202] - depth 4
+[Sun Oct 19 15:50:09 202] - vcf
+[Sun Oct 19 15:50:12 202] - name
+[Sun Oct 19 15:50:12 202] - depth 4
+[Sun Oct 19 15:50:12 202] - vcf
+[Sun Oct 19 15:50:12 202] - new xxx
+[Sun Oct 19 15:50:12 202] - next
+[Sun Oct 19 15:50:13 202] - new xxx
+[Sun Oct 19 15:50:13 202] - black JJJJ
+[Sun Oct 19 15:50:13 202] - white IJGJ
+[Sun Oct 19 15:50:13 202] - next
+[Sun Oct 19 15:50:14 202] - new xxx
+[Sun Oct 19 15:50:14 202] - black JJJJ
+[Sun Oct 19 15:50:14 202] - white IJGJ
+[Sun Oct 19 15:50:14 202] - black HJFJ
+[Sun Oct 19 15:50:14 202] - white HKIL
+[Sun Oct 19 15:50:14 202] - next
+[Sun Oct 19 15:50:16 202] - new xxx
+[Sun Oct 19 15:50:16 202] - black JJJJ
+[Sun Oct 19 15:50:16 202] - white IJGJ
+[Sun Oct 19 15:50:16 202] - black HJFJ
+[Sun Oct 19 15:50:16 202] - white HKIL
+[Sun Oct 19 15:50:16 202] - black GKJM
+[Sun Oct 19 15:50:16 202] - white KNKM
+[Sun Oct 19 15:50:16 202] - next
+[Sun Oct 19 15:50:18 202] - new xxx
+[Sun Oct 19 15:50:18 202] - black JJJJ
+[Sun Oct 19 15:50:18 202] - white IJGJ
+[Sun Oct 19 15:50:18 202] - black HJFJ
+[Sun Oct 19 15:50:18 202] - white HKIL
+[Sun Oct 19 15:50:18 202] - black GKJM
+[Sun Oct 19 15:50:18 202] - white KNKM
+[Sun Oct 19 15:50:18 202] - black HLLO
+[Sun Oct 19 15:50:18 202] - white KLKK
+[Sun Oct 19 15:50:18 202] - next
+[Sun Oct 19 15:50:21 202] - new xxx
+[Sun Oct 19 15:50:21 202] - black JJJJ
+[Sun Oct 19 15:50:21 202] - white IJGJ
+[Sun Oct 19 15:50:21 202] - black HJFJ
+[Sun Oct 19 15:50:21 202] - white HKIL
+[Sun Oct 19 15:50:21 202] - black GKJM
+[Sun Oct 19 15:50:21 202] - white KNKM
+[Sun Oct 19 15:50:21 202] - black HLLO
+[Sun Oct 19 15:50:21 202] - white KLKK
+[Sun Oct 19 15:50:21 202] - black IMJN
+[Sun Oct 19 15:50:21 202] - white KOMO
+[Sun Oct 19 15:50:21 202] - next
+[Sun Oct 19 15:50:23 202] - new xxx
+[Sun Oct 19 15:50:23 202] - black JJJJ
+[Sun Oct 19 15:50:23 202] - white IJGJ
+[Sun Oct 19 15:50:23 202] - black HJFJ
+[Sun Oct 19 15:50:23 202] - white HKIL
+[Sun Oct 19 15:50:23 202] - black GKJM
+[Sun Oct 19 15:50:23 202] - white KNKM
+[Sun Oct 19 15:50:23 202] - black HLLO
+[Sun Oct 19 15:50:23 202] - white KLKK
+[Sun Oct 19 15:50:23 202] - black IMJN
+[Sun Oct 19 15:50:23 202] - white KOMO
+[Sun Oct 19 15:50:23 202] - black KPKJ
+[Sun Oct 19 15:50:23 202] - white IKJK
+[Sun Oct 19 15:50:23 202] - next
+[Sun Oct 19 15:50:29 202] - name
+[Sun Oct 19 15:50:29 202] - depth 5
+[Sun Oct 19 15:50:29 202] - vcf
+[Sun Oct 19 15:50:30 202] - new xxx
+[Sun Oct 19 15:50:30 202] - next
+[Sun Oct 19 15:50:31 202] - new xxx
+[Sun Oct 19 15:50:31 202] - black JJJJ
+[Sun Oct 19 15:50:31 202] - white IJHJ
+[Sun Oct 19 15:50:31 202] - next
+[Sun Oct 19 15:50:33 202] - new xxx
+[Sun Oct 19 15:50:33 202] - black JJJJ
+[Sun Oct 19 15:50:33 202] - white IJHJ
+[Sun Oct 19 15:50:33 202] - black IKHI
+[Sun Oct 19 15:50:33 202] - white GJFJ
+[Sun Oct 19 15:50:33 202] - next
+[Sun Oct 19 15:50:40 202] - name
+[Sun Oct 19 15:50:40 202] - depth 5
+[Sun Oct 19 15:50:40 202] - vcf
+[Sun Oct 19 15:50:40 202] - new xxx
+[Sun Oct 19 15:50:40 202] - next
+[Sun Oct 19 15:50:41 202] - new xxx
+[Sun Oct 19 15:50:41 202] - black JJJJ
+[Sun Oct 19 15:50:41 202] - white JKJL
+[Sun Oct 19 15:50:41 202] - next
+[Sun Oct 19 15:50:43 202] - new xxx
+[Sun Oct 19 15:50:43 202] - black JJJJ
+[Sun Oct 19 15:50:43 202] - white JKJL
+[Sun Oct 19 15:50:43 202] - black JMIJ
+[Sun Oct 19 15:50:43 202] - white KKIK
+[Sun Oct 19 15:50:43 202] - next
+[Sun Oct 19 15:50:44 202] - new xxx
+[Sun Oct 19 15:50:44 202] - black JJJJ
+[Sun Oct 19 15:50:44 202] - white JKJL
+[Sun Oct 19 15:50:44 202] - black JMIJ
+[Sun Oct 19 15:50:44 202] - white KKIK
+[Sun Oct 19 15:50:44 202] - black ILLK
+[Sun Oct 19 15:50:44 202] - white HKGK
+[Sun Oct 19 15:50:44 202] - next
+[Sun Oct 19 15:50:47 202] - new xxx
+[Sun Oct 19 15:50:47 202] - black JJJJ
+[Sun Oct 19 15:50:47 202] - white JKJL
+[Sun Oct 19 15:50:47 202] - black JMIJ
+[Sun Oct 19 15:50:47 202] - white KKIK
+[Sun Oct 19 15:50:47 202] - black ILLK
+[Sun Oct 19 15:50:47 202] - white HKGK
+[Sun Oct 19 15:50:47 202] - black HLGJ
+[Sun Oct 19 15:50:47 202] - white HJFL
+[Sun Oct 19 15:50:47 202] - next
+[Sun Oct 19 15:58:38 202] - name
+[Sun Oct 19 15:58:38 202] - depth 4
+[Sun Oct 19 15:58:38 202] - vcf
+[Sun Oct 19 15:58:42 202] - name
+[Sun Oct 19 15:58:42 202] - depth 4
+[Sun Oct 19 15:58:42 202] - vcf
+[Sun Oct 19 15:58:42 202] - new xxx
+[Sun Oct 19 15:58:42 202] - next
+[Sun Oct 19 15:58:43 202] - new xxx
+[Sun Oct 19 15:58:43 202] - black JJJJ
+[Sun Oct 19 15:58:43 202] - white IJGJ
+[Sun Oct 19 15:58:43 202] - next
+[Sun Oct 19 16:01:52 202] - name
+[Sun Oct 19 16:01:52 202] - depth 4
+[Sun Oct 19 16:01:52 202] - vcf
+[Sun Oct 19 16:01:54 202] - name
+[Sun Oct 19 16:01:54 202] - depth 4
+[Sun Oct 19 16:01:54 202] - vcf
+[Sun Oct 19 16:01:54 202] - new xxx
+[Sun Oct 19 16:01:54 202] - next
+[Sun Oct 19 16:01:56 202] - new xxx
+[Sun Oct 19 16:01:56 202] - black JJJJ
+[Sun Oct 19 16:01:56 202] - white IJHJ
+[Sun Oct 19 16:01:56 202] - next
+[Sun Oct 19 16:24:56 202] - name
+[Sun Oct 19 16:24:56 202] - depth 4
+[Sun Oct 19 16:24:56 202] - vcf
+[Sun Oct 19 16:25:00 202] - name
+[Sun Oct 19 16:25:00 202] - depth 4
+[Sun Oct 19 16:25:00 202] - vcf
+[Sun Oct 19 16:25:00 202] - new xxx
+[Sun Oct 19 16:25:00 202] - next
+[Sun Oct 19 16:25:01 202] - new xxx
+[Sun Oct 19 16:25:01 202] - black JJJJ
+[Sun Oct 19 16:25:01 202] - white IJHJ
+[Sun Oct 19 16:25:01 202] - next
+[Sun Oct 19 16:25:03 202] - new xxx
+[Sun Oct 19 16:25:03 202] - black JJJJ
+[Sun Oct 19 16:25:03 202] - white IJHJ
+[Sun Oct 19 16:25:03 202] - black IKII
+[Sun Oct 19 16:25:03 202] - white GJFJ
+[Sun Oct 19 16:25:03 202] - next
+[Sun Oct 19 16:25:05 202] - new xxx
+[Sun Oct 19 16:25:05 202] - black JJJJ
+[Sun Oct 19 16:25:05 202] - white IJHJ
+[Sun Oct 19 16:25:05 202] - black IKII
+[Sun Oct 19 16:25:05 202] - white GJFJ
+[Sun Oct 19 16:25:05 202] - black GKHL
+[Sun Oct 19 16:25:05 202] - white EJGI
+[Sun Oct 19 16:25:05 202] - next
+[Sun Oct 19 16:25:06 202] - new xxx
+[Sun Oct 19 16:25:06 202] - black JJJJ
+[Sun Oct 19 16:25:06 202] - white IJHJ
+[Sun Oct 19 16:25:06 202] - black IKII
+[Sun Oct 19 16:25:06 202] - white GJFJ
+[Sun Oct 19 16:25:06 202] - black GKHL
+[Sun Oct 19 16:25:06 202] - white EJGI
+[Sun Oct 19 16:25:06 202] - black HKDJ
+[Sun Oct 19 16:25:06 202] - white FIHI
+[Sun Oct 19 16:25:06 202] - next
+[Sun Oct 19 16:25:08 202] - new xxx
+[Sun Oct 19 16:25:08 202] - black JJJJ
+[Sun Oct 19 16:25:08 202] - white IJHJ
+[Sun Oct 19 16:25:08 202] - black IKII
+[Sun Oct 19 16:25:08 202] - white GJFJ
+[Sun Oct 19 16:25:08 202] - black GKHL
+[Sun Oct 19 16:25:08 202] - white EJGI
+[Sun Oct 19 16:25:08 202] - black HKDJ
+[Sun Oct 19 16:25:08 202] - white FIHI
+[Sun Oct 19 16:25:08 202] - black FKEK
+[Sun Oct 19 16:25:08 202] - white EIDI
+[Sun Oct 19 16:25:08 202] - next
+[Sun Oct 19 16:25:15 202] - name
+[Sun Oct 19 16:25:15 202] - depth 4
+[Sun Oct 19 16:25:15 202] - vcf
+[Sun Oct 19 16:25:17 202] - name
+[Sun Oct 19 16:25:17 202] - depth 4
+[Sun Oct 19 16:25:17 202] - vcf
+[Sun Oct 19 16:25:18 202] - new xxx
+[Sun Oct 19 16:25:18 202] - black JJJJ
+[Sun Oct 19 16:25:18 202] - next
+[Sun Oct 19 16:25:19 202] - new xxx
+[Sun Oct 19 16:25:19 202] - black JJJJ
+[Sun Oct 19 16:25:19 202] - white JKIJ
+[Sun Oct 19 16:25:19 202] - black JIJH
+[Sun Oct 19 16:25:19 202] - next
+[Sun Oct 19 16:25:21 202] - new xxx
+[Sun Oct 19 16:25:21 202] - black JJJJ
+[Sun Oct 19 16:25:21 202] - white JKIJ
+[Sun Oct 19 16:25:21 202] - black JIJH
+[Sun Oct 19 16:25:21 202] - white IIIK
+[Sun Oct 19 16:25:21 202] - black JGJF
+[Sun Oct 19 16:25:21 202] - next
+[Sun Oct 19 16:25:22 202] - new xxx
+[Sun Oct 19 16:25:22 202] - black JJJJ
+[Sun Oct 19 16:25:22 202] - white JKIJ
+[Sun Oct 19 16:25:22 202] - black JIJH
+[Sun Oct 19 16:25:22 202] - white IIIK
+[Sun Oct 19 16:25:22 202] - black JGJF
+[Sun Oct 19 16:25:22 202] - white IGHJ
+[Sun Oct 19 16:25:22 202] - black KFKG
+[Sun Oct 19 16:25:22 202] - next
+[Sun Oct 19 16:25:27 202] - name
+[Sun Oct 19 16:25:27 202] - depth 5
+[Sun Oct 19 16:25:27 202] - vcf
+[Sun Oct 19 16:25:27 202] - new xxx
+[Sun Oct 19 16:25:27 202] - black JJJJ
+[Sun Oct 19 16:25:27 202] - next
+[Sun Oct 19 16:25:32 202] - new xxx
+[Sun Oct 19 16:25:32 202] - black JJJJ
+[Sun Oct 19 16:25:32 202] - white JKIJ
+[Sun Oct 19 16:25:32 202] - black KLHI
+[Sun Oct 19 16:25:32 202] - next
+[Sun Oct 19 16:25:33 202] - new xxx
+[Sun Oct 19 16:25:33 202] - black JJJJ
+[Sun Oct 19 16:25:33 202] - white JKIJ
+[Sun Oct 19 16:25:33 202] - black KLHI
+[Sun Oct 19 16:25:33 202] - white IKHJ
+[Sun Oct 19 16:25:33 202] - black GJHK
+[Sun Oct 19 16:25:33 202] - next
+[Sun Oct 19 16:25:37 202] - new xxx
+[Sun Oct 19 16:25:37 202] - black JJJJ
+[Sun Oct 19 16:25:37 202] - white JKIJ
+[Sun Oct 19 16:25:37 202] - black KLHI
+[Sun Oct 19 16:25:37 202] - white IKHJ
+[Sun Oct 19 16:25:37 202] - black GJHK
+[Sun Oct 19 16:25:37 202] - white GKHL
+[Sun Oct 19 16:25:37 202] - black KKKJ
+[Sun Oct 19 16:25:37 202] - next
+[Sun Oct 19 16:25:38 202] - new xxx
+[Sun Oct 19 16:25:38 202] - black JJJJ
+[Sun Oct 19 16:25:38 202] - white JKIJ
+[Sun Oct 19 16:25:38 202] - black KLHI
+[Sun Oct 19 16:25:38 202] - white IKHJ
+[Sun Oct 19 16:25:38 202] - black GJHK
+[Sun Oct 19 16:25:38 202] - white GKHL
+[Sun Oct 19 16:25:38 202] - black KKKJ
+[Sun Oct 19 16:25:38 202] - white JLIL
+[Sun Oct 19 16:25:38 202] - black IMJM
+[Sun Oct 19 16:25:38 202] - next
+[Sun Oct 19 16:25:40 202] - new xxx
+[Sun Oct 19 16:25:40 202] - black JJJJ
+[Sun Oct 19 16:25:40 202] - white JKIJ
+[Sun Oct 19 16:25:40 202] - black KLHI
+[Sun Oct 19 16:25:40 202] - white IKHJ
+[Sun Oct 19 16:25:40 202] - black GJHK
+[Sun Oct 19 16:25:40 202] - white GKHL
+[Sun Oct 19 16:25:40 202] - black KKKJ
+[Sun Oct 19 16:25:40 202] - white JLIL
+[Sun Oct 19 16:25:40 202] - black IMJM
+[Sun Oct 19 16:25:40 202] - white HMKM
+[Sun Oct 19 16:25:40 202] - black KIKH
+[Sun Oct 19 16:25:40 202] - next
+[Sun Oct 19 16:28:32 202] - name
+[Sun Oct 19 16:28:32 202] - depth 4
+[Sun Oct 19 16:28:32 202] - vcf
+[Sun Oct 19 16:28:35 202] - name
+[Sun Oct 19 16:28:35 202] - depth 4
+[Sun Oct 19 16:28:35 202] - vcf
+[Sun Oct 19 16:28:35 202] - new xxx
+[Sun Oct 19 16:28:35 202] - next
+[Sun Oct 19 16:28:37 202] - new xxx
+[Sun Oct 19 16:28:37 202] - black JJJJ
+[Sun Oct 19 16:28:37 202] - white IJHJ
+[Sun Oct 19 16:28:37 202] - next
+[Sun Oct 19 16:28:38 202] - new xxx
+[Sun Oct 19 16:28:38 202] - black JJJJ
+[Sun Oct 19 16:28:38 202] - white IJHJ
+[Sun Oct 19 16:28:38 202] - black JKIK
+[Sun Oct 19 16:28:38 202] - white HKHL
+[Sun Oct 19 16:28:38 202] - next
+[Sun Oct 19 16:28:39 202] - new xxx
+[Sun Oct 19 16:28:39 202] - black JJJJ
+[Sun Oct 19 16:28:39 202] - white IJHJ
+[Sun Oct 19 16:28:39 202] - black JKIK
+[Sun Oct 19 16:28:39 202] - white HKHL
+[Sun Oct 19 16:28:39 202] - black JLJI
+[Sun Oct 19 16:28:39 202] - white JMJH
+[Sun Oct 19 16:28:39 202] - next
+[Sun Oct 19 16:28:41 202] - new xxx
+[Sun Oct 19 16:28:41 202] - black JJJJ
+[Sun Oct 19 16:28:41 202] - white IJHJ
+[Sun Oct 19 16:28:41 202] - black JKIK
+[Sun Oct 19 16:28:41 202] - white HKHL
+[Sun Oct 19 16:28:41 202] - black JLJI
+[Sun Oct 19 16:28:41 202] - white JMJH
+[Sun Oct 19 16:28:41 202] - black KKKI
+[Sun Oct 19 16:28:41 202] - white LIII
+[Sun Oct 19 16:28:41 202] - next
+[Sun Oct 19 16:28:43 202] - new xxx
+[Sun Oct 19 16:28:43 202] - black JJJJ
+[Sun Oct 19 16:28:43 202] - white IJHJ
+[Sun Oct 19 16:28:43 202] - black JKIK
+[Sun Oct 19 16:28:43 202] - white HKHL
+[Sun Oct 19 16:28:43 202] - black JLJI
+[Sun Oct 19 16:28:43 202] - white JMJH
+[Sun Oct 19 16:28:43 202] - black KKKI
+[Sun Oct 19 16:28:43 202] - white LIII
+[Sun Oct 19 16:28:43 202] - black LKKJ
+[Sun Oct 19 16:28:43 202] - white HIHH
+[Sun Oct 19 16:28:43 202] - next
+[Sun Oct 19 16:28:45 202] - new xxx
+[Sun Oct 19 16:28:45 202] - black JJJJ
+[Sun Oct 19 16:28:45 202] - white IJHJ
+[Sun Oct 19 16:28:45 202] - black JKIK
+[Sun Oct 19 16:28:45 202] - white HKHL
+[Sun Oct 19 16:28:45 202] - black JLJI
+[Sun Oct 19 16:28:45 202] - white JMJH
+[Sun Oct 19 16:28:45 202] - black KKKI
+[Sun Oct 19 16:28:45 202] - white LIII
+[Sun Oct 19 16:28:45 202] - black LKKJ
+[Sun Oct 19 16:28:45 202] - white HIHH
+[Sun Oct 19 16:28:45 202] - black HMHG
+[Sun Oct 19 16:28:45 202] - white MKNK
+[Sun Oct 19 16:28:45 202] - next
+[Sun Oct 19 16:28:55 202] - name
+[Sun Oct 19 16:28:55 202] - depth 4
+[Sun Oct 19 16:28:55 202] - vcf
+[Sun Oct 19 16:28:55 202] - new xxx
+[Sun Oct 19 16:28:55 202] - next
+[Sun Oct 19 16:29:11 202] - new xxx
+[Sun Oct 19 16:29:11 202] - black JJJJ
+[Sun Oct 19 16:29:11 202] - white IJJK
+[Sun Oct 19 16:29:11 202] - next
+[Sun Oct 19 16:29:14 202] - new xxx
+[Sun Oct 19 16:29:14 202] - black JJJJ
+[Sun Oct 19 16:29:14 202] - white IJJK
+[Sun Oct 19 16:29:14 202] - black KJKI
+[Sun Oct 19 16:29:14 202] - white KHLJ
+[Sun Oct 19 16:29:14 202] - next
+[Sun Oct 19 16:29:41 202] - new xxx
+[Sun Oct 19 16:29:41 202] - black JJJJ
+[Sun Oct 19 16:29:41 202] - white IJJK
+[Sun Oct 19 16:29:41 202] - black KJKI
+[Sun Oct 19 16:29:41 202] - white KHLJ
+[Sun Oct 19 16:29:41 202] - black LHLK
+[Sun Oct 19 16:29:41 202] - white KKJI
+[Sun Oct 19 16:29:41 202] - next
+[Sun Oct 19 16:29:48 202] - new xxx
+[Sun Oct 19 16:29:48 202] - black JJJJ
+[Sun Oct 19 16:29:48 202] - white IJJK
+[Sun Oct 19 16:29:48 202] - black KJKI
+[Sun Oct 19 16:29:48 202] - white KHLJ
+[Sun Oct 19 16:29:48 202] - black LHLK
+[Sun Oct 19 16:29:48 202] - white KKJI
+[Sun Oct 19 16:29:48 202] - black IKMG
+[Sun Oct 19 16:29:48 202] - white NFHL
+[Sun Oct 19 16:29:48 202] - next
+[Sun Oct 19 16:30:08 202] - new xxx
+[Sun Oct 19 16:30:08 202] - black JJJJ
+[Sun Oct 19 16:30:08 202] - white IJJK
+[Sun Oct 19 16:30:08 202] - black KJKI
+[Sun Oct 19 16:30:08 202] - white KHLJ
+[Sun Oct 19 16:30:08 202] - black LHLK
+[Sun Oct 19 16:30:08 202] - white KKJI
+[Sun Oct 19 16:30:08 202] - black IKMG
+[Sun Oct 19 16:30:08 202] - white NFHL
+[Sun Oct 19 16:30:08 202] - black MLLG
+[Sun Oct 19 16:30:08 202] - white NMLF
+[Sun Oct 19 16:30:08 202] - next
+[Sun Oct 19 16:30:18 202] - new xxx
+[Sun Oct 19 16:30:18 202] - black JJJJ
+[Sun Oct 19 16:30:18 202] - white IJJK
+[Sun Oct 19 16:30:18 202] - black KJKI
+[Sun Oct 19 16:30:18 202] - white KHLJ
+[Sun Oct 19 16:30:18 202] - black LHLK
+[Sun Oct 19 16:30:18 202] - white KKJI
+[Sun Oct 19 16:30:18 202] - black IKMG
+[Sun Oct 19 16:30:18 202] - white NFHL
+[Sun Oct 19 16:30:18 202] - black MLLG
+[Sun Oct 19 16:30:18 202] - white NMLF
+[Sun Oct 19 16:30:18 202] - black KGMH
+[Sun Oct 19 16:30:18 202] - white MFNI
+[Sun Oct 19 16:30:18 202] - next
+[Sun Oct 19 16:30:22 202] - new xxx
+[Sun Oct 19 16:30:22 202] - black JJJJ
+[Sun Oct 19 16:30:22 202] - white IJJK
+[Sun Oct 19 16:30:22 202] - black KJKI
+[Sun Oct 19 16:30:22 202] - white KHLJ
+[Sun Oct 19 16:30:22 202] - black LHLK
+[Sun Oct 19 16:30:22 202] - white KKJI
+[Sun Oct 19 16:30:22 202] - black IKMG
+[Sun Oct 19 16:30:22 202] - white NFHL
+[Sun Oct 19 16:30:22 202] - black MLLG
+[Sun Oct 19 16:30:22 202] - white NMLF
+[Sun Oct 19 16:30:22 202] - black KGMH
+[Sun Oct 19 16:30:22 202] - white MFNI
+[Sun Oct 19 16:30:22 202] - black NGJG
+[Sun Oct 19 16:30:22 202] - white IGOG
+[Sun Oct 19 16:30:22 202] - next
+[Sun Oct 19 16:30:33 202] - new xxx
+[Sun Oct 19 16:30:33 202] - black JJJJ
+[Sun Oct 19 16:30:33 202] - white IJJK
+[Sun Oct 19 16:30:33 202] - black KJKI
+[Sun Oct 19 16:30:33 202] - white KHLJ
+[Sun Oct 19 16:30:33 202] - black LHLK
+[Sun Oct 19 16:30:33 202] - white KKJI
+[Sun Oct 19 16:30:33 202] - black IKMG
+[Sun Oct 19 16:30:33 202] - white NFHL
+[Sun Oct 19 16:30:33 202] - black MLLG
+[Sun Oct 19 16:30:33 202] - white NMLF
+[Sun Oct 19 16:30:33 202] - black KGMH
+[Sun Oct 19 16:30:33 202] - white MFNI
+[Sun Oct 19 16:30:33 202] - black NGJG
+[Sun Oct 19 16:30:33 202] - white IGOG
+[Sun Oct 19 16:30:33 202] - black LIMI
+[Sun Oct 19 16:30:33 202] - white KFJF
+[Sun Oct 19 16:30:33 202] - next
+[Sun Oct 19 16:30:41 202] - new xxx
+[Sun Oct 19 16:30:41 202] - black JJJJ
+[Sun Oct 19 16:30:41 202] - white IJJK
+[Sun Oct 19 16:30:41 202] - black KJKI
+[Sun Oct 19 16:30:41 202] - white KHLJ
+[Sun Oct 19 16:30:41 202] - black LHLK
+[Sun Oct 19 16:30:41 202] - white KKJI
+[Sun Oct 19 16:30:41 202] - black IKMG
+[Sun Oct 19 16:30:41 202] - white NFHL
+[Sun Oct 19 16:30:41 202] - black MLLG
+[Sun Oct 19 16:30:41 202] - white NMLF
+[Sun Oct 19 16:30:41 202] - black KGMH
+[Sun Oct 19 16:30:41 202] - white MFNI
+[Sun Oct 19 16:30:41 202] - black NGJG
+[Sun Oct 19 16:30:41 202] - white IGOG
+[Sun Oct 19 16:30:41 202] - black LIMI
+[Sun Oct 19 16:30:41 202] - white KFJF
+[Sun Oct 19 16:30:41 202] - black IFOF
+[Sun Oct 19 16:30:41 202] - white MJNJ
+[Sun Oct 19 16:30:41 202] - next
+[Sun Oct 19 16:30:58 202] - name
+[Sun Oct 19 16:30:58 202] - depth 5
+[Sun Oct 19 16:30:58 202] - vcf
+[Sun Oct 19 16:30:58 202] - new xxx
+[Sun Oct 19 16:30:58 202] - next
+[Sun Oct 19 16:31:02 202] - new xxx
+[Sun Oct 19 16:31:02 202] - black JJJJ
+[Sun Oct 19 16:31:02 202] - white IJJI
+[Sun Oct 19 16:31:02 202] - next
+[Sun Oct 19 16:31:06 202] - new xxx
+[Sun Oct 19 16:31:06 202] - black JJJJ
+[Sun Oct 19 16:31:06 202] - white IJJI
+[Sun Oct 19 16:31:06 202] - black JKLJ
+[Sun Oct 19 16:31:06 202] - white KJJL
+[Sun Oct 19 16:31:06 202] - next
+[Sun Oct 19 16:31:09 202] - new xxx
+[Sun Oct 19 16:31:09 202] - black JJJJ
+[Sun Oct 19 16:31:09 202] - white IJJI
+[Sun Oct 19 16:31:09 202] - black JKLJ
+[Sun Oct 19 16:31:09 202] - white KJJL
+[Sun Oct 19 16:31:09 202] - black KKLK
+[Sun Oct 19 16:31:09 202] - white MKIK
+[Sun Oct 19 16:31:09 202] - next
+[Sun Oct 19 16:31:13 202] - new xxx
+[Sun Oct 19 16:31:13 202] - black JJJJ
+[Sun Oct 19 16:31:13 202] - white IJJI
+[Sun Oct 19 16:31:13 202] - black JKLJ
+[Sun Oct 19 16:31:13 202] - white KJJL
+[Sun Oct 19 16:31:13 202] - black KKLK
+[Sun Oct 19 16:31:13 202] - white MKIK
+[Sun Oct 19 16:31:13 202] - black LLII
+[Sun Oct 19 16:31:13 202] - white MMHH
+[Sun Oct 19 16:31:13 202] - next
+[Sun Oct 19 16:31:18 202] - new xxx
+[Sun Oct 19 16:31:18 202] - black JJJJ
+[Sun Oct 19 16:31:18 202] - white IJJI
+[Sun Oct 19 16:31:18 202] - black JKLJ
+[Sun Oct 19 16:31:18 202] - white KJJL
+[Sun Oct 19 16:31:18 202] - black KKLK
+[Sun Oct 19 16:31:18 202] - white MKIK
+[Sun Oct 19 16:31:18 202] - black LLII
+[Sun Oct 19 16:31:18 202] - white MMHH
+[Sun Oct 19 16:31:18 202] - black LILM
+[Sun Oct 19 16:31:18 202] - white LHLN
+[Sun Oct 19 16:31:18 202] - next
+[Sun Oct 19 16:31:23 202] - new xxx
+[Sun Oct 19 16:31:23 202] - black JJJJ
+[Sun Oct 19 16:31:23 202] - white IJJI
+[Sun Oct 19 16:31:23 202] - black JKLJ
+[Sun Oct 19 16:31:23 202] - white KJJL
+[Sun Oct 19 16:31:23 202] - black KKLK
+[Sun Oct 19 16:31:23 202] - white MKIK
+[Sun Oct 19 16:31:23 202] - black LLII
+[Sun Oct 19 16:31:23 202] - white MMHH
+[Sun Oct 19 16:31:23 202] - black LILM
+[Sun Oct 19 16:31:23 202] - white LHLN
+[Sun Oct 19 16:31:23 202] - black KLML
+[Sun Oct 19 16:31:23 202] - white NLMJ
+[Sun Oct 19 16:31:23 202] - next
+[Sun Oct 19 16:31:37 202] - new xxx
+[Sun Oct 19 16:31:37 202] - black JJJJ
+[Sun Oct 19 16:31:37 202] - white IJJI
+[Sun Oct 19 16:31:37 202] - black JKLJ
+[Sun Oct 19 16:31:37 202] - white KJJL
+[Sun Oct 19 16:31:37 202] - black KKLK
+[Sun Oct 19 16:31:37 202] - white MKIK
+[Sun Oct 19 16:31:37 202] - black LLII
+[Sun Oct 19 16:31:37 202] - white MMHH
+[Sun Oct 19 16:31:37 202] - black LILM
+[Sun Oct 19 16:31:37 202] - white LHLN
+[Sun Oct 19 16:31:37 202] - black KLML
+[Sun Oct 19 16:31:37 202] - white NLMJ
+[Sun Oct 19 16:31:37 202] - black MNMI
+[Sun Oct 19 16:31:37 202] - white IHHG
+[Sun Oct 19 16:31:37 202] - next
+[Sun Oct 19 16:32:00 202] - name
+[Sun Oct 19 16:32:00 202] - depth 6
+[Sun Oct 19 16:32:00 202] - vcf
+[Sun Oct 19 16:32:00 202] - new xxx
+[Sun Oct 19 16:32:00 202] - next
+[Sun Oct 19 16:32:01 202] - new xxx
+[Sun Oct 19 16:32:01 202] - black JJJJ
+[Sun Oct 19 16:32:01 202] - white IJJK
+[Sun Oct 19 16:32:01 202] - next
+[Sun Oct 19 16:32:06 202] - new xxx
+[Sun Oct 19 16:32:06 202] - black JJJJ
+[Sun Oct 19 16:32:06 202] - white IJJK
+[Sun Oct 19 16:32:06 202] - black KJJH
+[Sun Oct 19 16:32:06 202] - white HIGH
+[Sun Oct 19 16:32:06 202] - next
+[Sun Oct 19 16:32:56 202] - name
+[Sun Oct 19 16:32:56 202] - depth 6
+[Sun Oct 19 16:32:56 202] - vcf
+[Sun Oct 19 16:32:56 202] - new xxx
+[Sun Oct 19 16:32:56 202] - next
+[Sun Oct 19 16:32:57 202] - new xxx
+[Sun Oct 19 16:32:57 202] - black JJJJ
+[Sun Oct 19 16:32:57 202] - white IJKJ
+[Sun Oct 19 16:32:57 202] - next
+[Sun Oct 19 16:33:00 202] - new xxx
+[Sun Oct 19 16:33:00 202] - black JJJJ
+[Sun Oct 19 16:33:00 202] - white IJKJ
+[Sun Oct 19 16:33:00 202] - black JKJI
+[Sun Oct 19 16:33:00 202] - white JLJH
+[Sun Oct 19 16:33:00 202] - next
+[Sun Oct 19 16:33:03 202] - new xxx
+[Sun Oct 19 16:33:03 202] - black JJJJ
+[Sun Oct 19 16:33:03 202] - white IJKJ
+[Sun Oct 19 16:33:03 202] - black JKJI
+[Sun Oct 19 16:33:03 202] - white JLJH
+[Sun Oct 19 16:33:03 202] - black IIKI
+[Sun Oct 19 16:33:03 202] - white HIHJ
+[Sun Oct 19 16:33:03 202] - next
+[Sun Oct 19 16:33:07 202] - new xxx
+[Sun Oct 19 16:33:07 202] - black JJJJ
+[Sun Oct 19 16:33:07 202] - white IJKJ
+[Sun Oct 19 16:33:07 202] - black JKJI
+[Sun Oct 19 16:33:07 202] - white JLJH
+[Sun Oct 19 16:33:07 202] - black IIKI
+[Sun Oct 19 16:33:07 202] - white HIHJ
+[Sun Oct 19 16:33:07 202] - black LIKK
+[Sun Oct 19 16:33:07 202] - white MILJ
+[Sun Oct 19 16:33:07 202] - next
+[Sun Oct 19 16:33:12 202] - new xxx
+[Sun Oct 19 16:33:12 202] - black JJJJ
+[Sun Oct 19 16:33:12 202] - white IJKJ
+[Sun Oct 19 16:33:12 202] - black JKJI
+[Sun Oct 19 16:33:12 202] - white JLJH
+[Sun Oct 19 16:33:12 202] - black IIKI
+[Sun Oct 19 16:33:12 202] - white HIHJ
+[Sun Oct 19 16:33:12 202] - black LIKK
+[Sun Oct 19 16:33:12 202] - white MILJ
+[Sun Oct 19 16:33:12 202] - black LLHH
+[Sun Oct 19 16:33:12 202] - white GGMM
+[Sun Oct 19 16:33:12 202] - next
+[Sun Oct 19 16:33:19 202] - new xxx
+[Sun Oct 19 16:33:19 202] - black JJJJ
+[Sun Oct 19 16:33:19 202] - white IJKJ
+[Sun Oct 19 16:33:19 202] - black JKJI
+[Sun Oct 19 16:33:19 202] - white JLJH
+[Sun Oct 19 16:33:19 202] - black IIKI
+[Sun Oct 19 16:33:19 202] - white HIHJ
+[Sun Oct 19 16:33:19 202] - black LIKK
+[Sun Oct 19 16:33:19 202] - white MILJ
+[Sun Oct 19 16:33:19 202] - black LLHH
+[Sun Oct 19 16:33:19 202] - white GGMM
+[Sun Oct 19 16:33:19 202] - black IKMJ
+[Sun Oct 19 16:33:19 202] - white NHOG
+[Sun Oct 19 16:33:19 202] - next
+[Sun Oct 19 16:37:03 202] - name
+[Sun Oct 19 16:37:03 202] - depth 4
+[Sun Oct 19 16:37:03 202] - vcf
+[Sun Oct 19 16:37:06 202] - name
+[Sun Oct 19 16:37:06 202] - depth 4
+[Sun Oct 19 16:37:06 202] - vcf
+[Sun Oct 19 16:37:06 202] - new xxx
+[Sun Oct 19 16:37:06 202] - next
+[Sun Oct 19 16:37:07 202] - new xxx
+[Sun Oct 19 16:37:07 202] - black JJJJ
+[Sun Oct 19 16:37:07 202] - white IJJK
+[Sun Oct 19 16:37:07 202] - next
+[Sun Oct 19 16:39:03 202] - name
+[Sun Oct 19 16:39:03 202] - depth 4
+[Sun Oct 19 16:39:03 202] - vcf
+[Sun Oct 19 16:39:06 202] - name
+[Sun Oct 19 16:39:06 202] - depth 4
+[Sun Oct 19 16:39:06 202] - vcf
+[Sun Oct 19 16:39:06 202] - new xxx
+[Sun Oct 19 16:39:06 202] - next
+[Sun Oct 19 16:39:07 202] - new xxx
+[Sun Oct 19 16:39:07 202] - black JJJJ
+[Sun Oct 19 16:39:07 202] - white IJJK
+[Sun Oct 19 16:39:07 202] - next
+[Sun Oct 19 16:39:08 202] - new xxx
+[Sun Oct 19 16:39:08 202] - black JJJJ
+[Sun Oct 19 16:39:08 202] - white IJJK
+[Sun Oct 19 16:39:08 202] - black IKKI
+[Sun Oct 19 16:39:08 202] - white LHHL
+[Sun Oct 19 16:39:08 202] - next
+[Sun Oct 19 16:39:13 202] - new xxx
+[Sun Oct 19 16:39:13 202] - black JJJJ
+[Sun Oct 19 16:39:13 202] - white IJJK
+[Sun Oct 19 16:39:13 202] - black IKKI
+[Sun Oct 19 16:39:13 202] - white LHHL
+[Sun Oct 19 16:39:13 202] - black KJJH
+[Sun Oct 19 16:39:13 202] - white KKLK
+[Sun Oct 19 16:39:13 202] - next
+[Sun Oct 19 16:39:15 202] - new xxx
+[Sun Oct 19 16:39:15 202] - black JJJJ
+[Sun Oct 19 16:39:15 202] - white IJJK
+[Sun Oct 19 16:39:15 202] - black IKKI
+[Sun Oct 19 16:39:15 202] - white LHHL
+[Sun Oct 19 16:39:15 202] - black KJJH
+[Sun Oct 19 16:39:15 202] - white KKLK
+[Sun Oct 19 16:39:15 202] - black LJJI
+[Sun Oct 19 16:39:15 202] - white MKNK
+[Sun Oct 19 16:39:15 202] - next
+[Sun Oct 19 16:39:20 202] - name
+[Sun Oct 19 16:39:20 202] - depth 5
+[Sun Oct 19 16:39:20 202] - vcf
+[Sun Oct 19 16:39:20 202] - new xxx
+[Sun Oct 19 16:39:20 202] - next
+[Sun Oct 19 16:39:21 202] - new xxx
+[Sun Oct 19 16:39:21 202] - black JJJJ
+[Sun Oct 19 16:39:21 202] - white IJJK
+[Sun Oct 19 16:39:21 202] - next
+[Sun Oct 19 16:39:23 202] - new xxx
+[Sun Oct 19 16:39:23 202] - black JJJJ
+[Sun Oct 19 16:39:23 202] - white IJJK
+[Sun Oct 19 16:39:23 202] - black IKKI
+[Sun Oct 19 16:39:23 202] - white HIGI
+[Sun Oct 19 16:39:23 202] - next
+[Sun Oct 19 16:39:25 202] - new xxx
+[Sun Oct 19 16:39:25 202] - black JJJJ
+[Sun Oct 19 16:39:25 202] - white IJJK
+[Sun Oct 19 16:39:25 202] - black IKKI
+[Sun Oct 19 16:39:25 202] - white HIGI
+[Sun Oct 19 16:39:25 202] - black HLLH
+[Sun Oct 19 16:39:25 202] - white MGGM
+[Sun Oct 19 16:39:25 202] - next
+[Sun Oct 19 16:39:27 202] - new xxx
+[Sun Oct 19 16:39:27 202] - black JJJJ
+[Sun Oct 19 16:39:27 202] - white IJJK
+[Sun Oct 19 16:39:27 202] - black IKKI
+[Sun Oct 19 16:39:27 202] - white HIGI
+[Sun Oct 19 16:39:27 202] - black HLLH
+[Sun Oct 19 16:39:27 202] - white MGGM
+[Sun Oct 19 16:39:27 202] - black KJLI
+[Sun Oct 19 16:39:27 202] - white KLLM
+[Sun Oct 19 16:39:27 202] - next
+[Sun Oct 19 16:39:29 202] - new xxx
+[Sun Oct 19 16:39:29 202] - black JJJJ
+[Sun Oct 19 16:39:29 202] - white IJJK
+[Sun Oct 19 16:39:29 202] - black IKKI
+[Sun Oct 19 16:39:29 202] - white HIGI
+[Sun Oct 19 16:39:29 202] - black HLLH
+[Sun Oct 19 16:39:29 202] - white MGGM
+[Sun Oct 19 16:39:29 202] - black KJLI
+[Sun Oct 19 16:39:29 202] - white KLLM
+[Sun Oct 19 16:39:29 202] - black MNGH
+[Sun Oct 19 16:39:29 202] - white MILJ
+[Sun Oct 19 16:39:29 202] - next
+[Sun Oct 19 16:39:32 202] - new xxx
+[Sun Oct 19 16:39:32 202] - black JJJJ
+[Sun Oct 19 16:39:32 202] - white IJJK
+[Sun Oct 19 16:39:32 202] - black IKKI
+[Sun Oct 19 16:39:32 202] - white HIGI
+[Sun Oct 19 16:39:32 202] - black HLLH
+[Sun Oct 19 16:39:32 202] - white MGGM
+[Sun Oct 19 16:39:32 202] - black KJLI
+[Sun Oct 19 16:39:32 202] - white KLLM
+[Sun Oct 19 16:39:32 202] - black MNGH
+[Sun Oct 19 16:39:32 202] - white MILJ
+[Sun Oct 19 16:39:32 202] - black KHJI
+[Sun Oct 19 16:39:32 202] - white KKJL
+[Sun Oct 19 16:39:32 202] - next
+[Sun Oct 19 16:39:41 202] - name
+[Sun Oct 19 16:39:41 202] - depth 6
+[Sun Oct 19 16:39:41 202] - vcf
+[Sun Oct 19 16:39:41 202] - new xxx
+[Sun Oct 19 16:39:41 202] - next
+[Sun Oct 19 16:39:42 202] - new xxx
+[Sun Oct 19 16:39:42 202] - black JJJJ
+[Sun Oct 19 16:39:42 202] - white IJJK
+[Sun Oct 19 16:39:42 202] - next
+[Sun Oct 19 16:39:45 202] - new xxx
+[Sun Oct 19 16:39:45 202] - black JJJJ
+[Sun Oct 19 16:39:45 202] - white IJJK
+[Sun Oct 19 16:39:45 202] - black IKII
+[Sun Oct 19 16:39:45 202] - white HIGH
+[Sun Oct 19 16:39:45 202] - next
+[Sun Oct 19 16:39:49 202] - new xxx
+[Sun Oct 19 16:39:49 202] - black JJJJ
+[Sun Oct 19 16:39:49 202] - white IJJK
+[Sun Oct 19 16:39:49 202] - black IKII
+[Sun Oct 19 16:39:49 202] - white HIGH
+[Sun Oct 19 16:39:49 202] - black HHKJ
+[Sun Oct 19 16:39:49 202] - white KLLJ
+[Sun Oct 19 16:39:49 202] - next
+[Sun Oct 19 16:39:54 202] - new xxx
+[Sun Oct 19 16:39:54 202] - black JJJJ
+[Sun Oct 19 16:39:54 202] - white IJJK
+[Sun Oct 19 16:39:54 202] - black IKII
+[Sun Oct 19 16:39:54 202] - white HIGH
+[Sun Oct 19 16:39:54 202] - black HHKJ
+[Sun Oct 19 16:39:54 202] - white KLLJ
+[Sun Oct 19 16:39:54 202] - black LMFG
+[Sun Oct 19 16:39:54 202] - white JMJL
+[Sun Oct 19 16:39:54 202] - next
+[Sun Oct 19 16:39:57 202] - new xxx
+[Sun Oct 19 16:39:57 202] - black JJJJ
+[Sun Oct 19 16:39:57 202] - white IJJK
+[Sun Oct 19 16:39:57 202] - black IKII
+[Sun Oct 19 16:39:57 202] - white HIGH
+[Sun Oct 19 16:39:57 202] - black HHKJ
+[Sun Oct 19 16:39:57 202] - white KLLJ
+[Sun Oct 19 16:39:57 202] - black LMFG
+[Sun Oct 19 16:39:57 202] - white JMJL
+[Sun Oct 19 16:39:57 202] - black KKGG
+[Sun Oct 19 16:39:57 202] - white JNJO
+[Sun Oct 19 16:39:57 202] - next
+[Sun Oct 19 17:03:42 202] - name
+[Sun Oct 19 17:03:42 202] - depth 4
+[Sun Oct 19 17:03:42 202] - vcf
+[Sun Oct 19 17:03:45 202] - name
+[Sun Oct 19 17:03:45 202] - depth 5
+[Sun Oct 19 17:03:45 202] - vcf
+[Sun Oct 19 17:03:45 202] - new xxx
+[Sun Oct 19 17:03:45 202] - next
+[Sun Oct 19 17:03:46 202] - new xxx
+[Sun Oct 19 17:03:46 202] - black JJJJ
+[Sun Oct 19 17:03:46 202] - white IJIK
+[Sun Oct 19 17:03:46 202] - next
+[Sun Oct 19 17:03:50 202] - new xxx
+[Sun Oct 19 17:03:50 202] - black JJJJ
+[Sun Oct 19 17:03:50 202] - white IJIK
+[Sun Oct 19 17:03:50 202] - black JKII
+[Sun Oct 19 17:03:50 202] - white ILIM
+[Sun Oct 19 17:03:50 202] - next
+[Sun Oct 19 17:03:54 202] - new xxx
+[Sun Oct 19 17:03:54 202] - black JJJJ
+[Sun Oct 19 17:03:54 202] - white IJIK
+[Sun Oct 19 17:03:54 202] - black JKII
+[Sun Oct 19 17:03:54 202] - white ILIM
+[Sun Oct 19 17:03:54 202] - black KKJL
+[Sun Oct 19 17:03:54 202] - white INLK
+[Sun Oct 19 17:03:54 202] - next
+[Sun Oct 19 17:03:58 202] - name
+[Sun Oct 19 17:03:58 202] - depth 4
+[Sun Oct 19 17:03:58 202] - vcf
+[Sun Oct 19 17:03:59 202] - new xxx
+[Sun Oct 19 17:03:59 202] - next
+[Sun Oct 19 17:04:00 202] - new xxx
+[Sun Oct 19 17:04:00 202] - black JJJJ
+[Sun Oct 19 17:04:00 202] - white IJJL
+[Sun Oct 19 17:04:00 202] - next
+[Sun Oct 19 17:04:02 202] - new xxx
+[Sun Oct 19 17:04:02 202] - black JJJJ
+[Sun Oct 19 17:04:02 202] - white IJJL
+[Sun Oct 19 17:04:02 202] - black JKJM
+[Sun Oct 19 17:04:02 202] - white IKHJ
+[Sun Oct 19 17:04:02 202] - next
+[Sun Oct 19 17:04:03 202] - new xxx
+[Sun Oct 19 17:04:03 202] - black JJJJ
+[Sun Oct 19 17:04:03 202] - white IJJL
+[Sun Oct 19 17:04:03 202] - black JKJM
+[Sun Oct 19 17:04:03 202] - white IKHJ
+[Sun Oct 19 17:04:03 202] - black JIGJ
+[Sun Oct 19 17:04:03 202] - white FJEJ
+[Sun Oct 19 17:04:03 202] - next
+[Sun Oct 19 17:04:04 202] - new xxx
+[Sun Oct 19 17:04:04 202] - black JJJJ
+[Sun Oct 19 17:04:04 202] - white IJJL
+[Sun Oct 19 17:04:04 202] - black JKJM
+[Sun Oct 19 17:04:04 202] - white IKHJ
+[Sun Oct 19 17:04:04 202] - black JIGJ
+[Sun Oct 19 17:04:04 202] - white FJEJ
+[Sun Oct 19 17:04:04 202] - black JHFK
+[Sun Oct 19 17:04:04 202] - white DJCJ
+[Sun Oct 19 17:04:04 202] - next
+[Sun Oct 19 17:04:07 202] - new xxx
+[Sun Oct 19 17:04:07 202] - black JJJJ
+[Sun Oct 19 17:04:07 202] - white IJJL
+[Sun Oct 19 17:04:07 202] - black JKJM
+[Sun Oct 19 17:04:07 202] - white IKHJ
+[Sun Oct 19 17:04:07 202] - black JIGJ
+[Sun Oct 19 17:04:07 202] - white FJEJ
+[Sun Oct 19 17:04:07 202] - black JHFK
+[Sun Oct 19 17:04:07 202] - white DJCJ
+[Sun Oct 19 17:04:07 202] - black JGEK
+[Sun Oct 19 17:04:07 202] - white JFJE
+[Sun Oct 19 17:04:07 202] - next
+[Sun Oct 19 17:04:09 202] - new xxx
+[Sun Oct 19 17:04:09 202] - black JJJJ
+[Sun Oct 19 17:04:09 202] - white IJJL
+[Sun Oct 19 17:04:09 202] - black JKJM
+[Sun Oct 19 17:04:09 202] - white IKHJ
+[Sun Oct 19 17:04:09 202] - black JIGJ
+[Sun Oct 19 17:04:09 202] - white FJEJ
+[Sun Oct 19 17:04:09 202] - black JHFK
+[Sun Oct 19 17:04:09 202] - white DJCJ
+[Sun Oct 19 17:04:09 202] - black JGEK
+[Sun Oct 19 17:04:09 202] - white JFJE
+[Sun Oct 19 17:04:09 202] - black HIIH
+[Sun Oct 19 17:04:09 202] - white KFLE
+[Sun Oct 19 17:04:09 202] - next
+[Sun Oct 19 17:04:18 202] - name
+[Sun Oct 19 17:04:18 202] - depth 6
+[Sun Oct 19 17:04:18 202] - vcf
+[Sun Oct 19 17:04:18 202] - new xxx
+[Sun Oct 19 17:04:18 202] - next
+[Sun Oct 19 17:04:19 202] - new xxx
+[Sun Oct 19 17:04:19 202] - black JJJJ
+[Sun Oct 19 17:04:19 202] - white IJHJ
+[Sun Oct 19 17:04:19 202] - next
+[Sun Oct 19 17:04:23 202] - new xxx
+[Sun Oct 19 17:04:23 202] - black JJJJ
+[Sun Oct 19 17:04:23 202] - white IJHJ
+[Sun Oct 19 17:04:23 202] - black IIHK
+[Sun Oct 19 17:04:23 202] - white GJFJ
+[Sun Oct 19 17:04:23 202] - next
+[Sun Oct 19 17:04:28 202] - new xxx
+[Sun Oct 19 17:04:28 202] - black JJJJ
+[Sun Oct 19 17:04:28 202] - white IJHJ
+[Sun Oct 19 17:04:28 202] - black IIHK
+[Sun Oct 19 17:04:28 202] - white GJFJ
+[Sun Oct 19 17:04:28 202] - black HHKJ
+[Sun Oct 19 17:04:28 202] - white KKLL
+[Sun Oct 19 17:04:28 202] - next
+[Sun Oct 19 17:04:35 202] - new xxx
+[Sun Oct 19 17:04:35 202] - black JJJJ
+[Sun Oct 19 17:04:35 202] - white IJHJ
+[Sun Oct 19 17:04:35 202] - black IIHK
+[Sun Oct 19 17:04:35 202] - white GJFJ
+[Sun Oct 19 17:04:35 202] - black HHKJ
+[Sun Oct 19 17:04:35 202] - white KKLL
+[Sun Oct 19 17:04:35 202] - black GGLK
+[Sun Oct 19 17:04:35 202] - white FFEJ
+[Sun Oct 19 17:04:35 202] - next
+[Sun Oct 19 17:05:24 202] - name
+[Sun Oct 19 17:05:24 202] - depth 4
+[Sun Oct 19 17:05:24 202] - vcf
+[Sun Oct 19 17:05:27 202] - name
+[Sun Oct 19 17:05:27 202] - depth 4
+[Sun Oct 19 17:05:27 202] - vcf
+[Sun Oct 19 17:05:27 202] - new xxx
+[Sun Oct 19 17:05:27 202] - next
+[Sun Oct 19 17:05:28 202] - new xxx
+[Sun Oct 19 17:05:28 202] - black JJJJ
+[Sun Oct 19 17:05:28 202] - white IJJK
+[Sun Oct 19 17:05:28 202] - next
+[Sun Oct 19 17:05:30 202] - new xxx
+[Sun Oct 19 17:05:30 202] - black JJJJ
+[Sun Oct 19 17:05:30 202] - white IJJK
+[Sun Oct 19 17:05:30 202] - black IKII
+[Sun Oct 19 17:05:30 202] - white HJGJ
+[Sun Oct 19 17:05:30 202] - next
+[Sun Oct 19 17:05:31 202] - new xxx
+[Sun Oct 19 17:05:31 202] - black JJJJ
+[Sun Oct 19 17:05:31 202] - white IJJK
+[Sun Oct 19 17:05:31 202] - black IKII
+[Sun Oct 19 17:05:31 202] - white HJGJ
+[Sun Oct 19 17:05:31 202] - black HHIL
+[Sun Oct 19 17:05:31 202] - white FJEJ
+[Sun Oct 19 17:05:31 202] - next
+[Sun Oct 19 17:05:33 202] - new xxx
+[Sun Oct 19 17:05:33 202] - black JJJJ
+[Sun Oct 19 17:05:33 202] - white IJJK
+[Sun Oct 19 17:05:33 202] - black IKII
+[Sun Oct 19 17:05:33 202] - white HJGJ
+[Sun Oct 19 17:05:33 202] - black HHIL
+[Sun Oct 19 17:05:33 202] - white FJEJ
+[Sun Oct 19 17:05:33 202] - black GGKK
+[Sun Oct 19 17:05:33 202] - white LLFF
+[Sun Oct 19 17:05:33 202] - next

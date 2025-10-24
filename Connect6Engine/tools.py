@@ -3,6 +3,12 @@ import time
 from itertools import combinations
 
 
+
+DIRECTIONS_MAIN = [(1, 0), (0, 1), (1, 1), (1, -1)]
+DIRECTIONS_ADJ  = [(dx, dy) for dx in (-1, 0, 1)
+                             for dy in (-1, 0, 1)
+                             if not (dx == 0 and dy == 0)]
+
 # Point (x, y) if in the valid position of the board.
 def isValidPos(x,y):
     return x>0 and x<Defines.GRID_NUM-1 and y>0 and y<Defines.GRID_NUM-1
@@ -172,40 +178,94 @@ def check_game_result(board, last_positions, engine=None):
     return Defines.NOSTONE
 
 
-def move_heuristic(board, mv, last_positions=None) -> int:
+def move_heuristic(board, mv, last_positions=None, my_color=None) -> int:
     x, y = mv
+    if board[x][y] != Defines.NOSTONE:
+        return -9999  # invalid move
+
+    GRID_NUM = Defines.GRID_NUM
     score = 0
 
-    # Directions for scanning lines
-    directions = [(1,0),(0,1),(1,1),(1,-1)]
+    opp_color = Defines.WHITE if my_color == Defines.BLACK else Defines.BLACK
+    get = board.__getitem__  # local alias for slightly faster access
 
-    # Encourage connections: count nearby stones in straight lines
-    for dx, dy in directions:
-        line_count = 0
-        for step in range(1, 4):   # look 3 steps out
-            nx, ny = x + dx*step, y + dy*step
-            if 0 <= nx < Defines.GRID_NUM and 0 <= ny < Defines.GRID_NUM:
-                if board[nx][ny] != Defines.NOSTONE:
-                    line_count += 1
+    # --- (1) Tactical lines: offense + defense ---
+    for dx, dy in DIRECTIONS_MAIN:
+        my_count = opp_count = my_open = opp_open = 0
+
+        # ---- Scan my stones in both directions ----
+        for sign in (1, -1):
+            nx, ny = x + sign * dx, y + sign * dy
+            while 0 <= nx < GRID_NUM and 0 <= ny < GRID_NUM:
+                val = get(nx)[ny]
+                if val == my_color:
+                    my_count += 1
+                elif val == Defines.NOSTONE:
+                    my_open += 1
+                    break
                 else:
                     break
-            else:
-                break
-        score += line_count * 3   # stronger weight for line continuity
+                nx += sign * dx
+                ny += sign * dy
 
-    # Bonus: adjacency (small weight)
-    for dx, dy in [(1,0),(0,1),(1,1),(1,-1),
-                   (-1,0),(0,-1),(-1,1),(-1,-1)]:
+        # ---- Scan opponent stones ----
+        for sign in (1, -1):
+            nx, ny = x + sign * dx, y + sign * dy
+            while 0 <= nx < GRID_NUM and 0 <= ny < GRID_NUM:
+                val = get(nx)[ny]
+                if val == opp_color:
+                    opp_count += 1
+                elif val == Defines.NOSTONE:
+                    opp_open += 1
+                    break
+                else:
+                    break
+                nx += sign * dx
+                ny += sign * dy
+
+        # --- Offensive scoring ---
+        if my_count >= 5:
+            score += 15000
+        elif my_count == 4:
+            score += 4000 * my_open
+        elif my_count == 3:
+            score += 700 * my_open
+        elif my_count == 2:
+            score += 120 * my_open
+        elif my_count == 1:
+            score += 30
+
+        # --- Defensive scoring ---
+        if opp_count >= 5:
+            score += 12000
+        elif opp_count == 4:
+            score += 3500 * opp_open
+        elif opp_count == 3:
+            score += 600 * opp_open
+        elif opp_count == 2:
+            score += 100 * opp_open
+
+    # --- (2) Local adjacency density ---
+    for dx, dy in DIRECTIONS_ADJ:
         nx, ny = x + dx, y + dy
-        if 0 <= nx < Defines.GRID_NUM and 0 <= ny < Defines.GRID_NUM:
-            if board[nx][ny] != Defines.NOSTONE:
-                score += 1
+        if 0 <= nx < GRID_NUM and 0 <= ny < GRID_NUM:
+            val = get(nx)[ny]
+            if val == my_color:
+                score += 20
+            elif val == opp_color:
+                score += 10
 
-    # Bonus: proximity to last moves
+    # --- (3) Proximity to last moves ---
     if last_positions:
         for (lx, ly) in last_positions:
             dist = abs(x - lx) + abs(y - ly)
-            score += max(0, 10 - dist)  # higher weight to prefer local area
+            if dist <= 6:
+                score += 16 - 2 * dist  # linear falloff
+
+    # --- (4) Center preference ---
+    c = GRID_NUM // 2
+    distc = abs(x - c) + abs(y - c)
+    score += max(0, 6 - distc) * 2
 
     return score
 

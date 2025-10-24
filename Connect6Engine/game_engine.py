@@ -85,6 +85,7 @@ class GameEngine:
 
                 if msg[4:] == "black":
                     self.m_best_move = msg2move("JJ")
+                    self.initialize = True
                     make_move(self.m_board, self.m_best_move, Defines.BLACK)
                     self.m_chess_type = Defines.BLACK
                     msg = "move JJ"
@@ -146,6 +147,7 @@ class GameEngine:
         maximizing = (ourColor == Defines.BLACK)
         
         if not self.initialize and ourColor == Defines.BLACK:
+            print("aquí")
             move = StoneMove()
             move.positions[0] = StonePosition(Defines.GRID_NUM // 2, Defines.GRID_NUM // 2)
             move.positions[1] = StonePosition(Defines.GRID_NUM // 2, Defines.GRID_NUM // 2)
@@ -159,9 +161,8 @@ class GameEngine:
             bestMove.positions[1].y = pos2.y
             bestMove.color = ourColor
             self.initialize = True
+            
             return True
-
-
 
         # Run alpha-beta search
         score, move = self.m_search_engine.alpha_beta_pruning(
@@ -170,7 +171,7 @@ class GameEngine:
             Defines.MININT, Defines.MAXINT,
             maximizing,
             bestMove,
-            max_candidates=20
+            max_candidates=40
         )
 
         if move:
