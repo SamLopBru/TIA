@@ -1,4 +1,5 @@
 from tools import *
+import random
 # 'influence': 0.4833960258781689, 'pattern': 0.5166039741218311
 
 class SearchEngine():
@@ -17,35 +18,105 @@ class SearchEngine():
         # --- initialize cache for transposition table ---
         self.transposition_table = {}
 
-    def before_search(self, board, color, alphabeta_depth):
-        self.m_board = [row[:] for row in board]
-        # count stones already on board
-        self.stone_count = sum(1 for r in self.m_board for v in r if v != Defines.NOSTONE)
-        self.m_chess_type = color
-        self.m_alphabeta_depth = alphabeta_depth
-        self.m_total_nodes = 0
+        self.zobrist_table = self.init_zobrist_table()
+        self.current_hash = 0
 
-    def board_hash(self, board):
-        """Compute a simple but unique hash for board state."""
-        import hashlib, json
-        flat = ''.join(str(cell) for row in board for cell in row)
-        return hashlib.md5(flat.encode()).hexdigest()
+        self.metrics = {
+            'nodes_expanded': 0,
+            'nodes_pruned': 0,
+            'transposition_hits': 0,
+            'quiescence_calls': 0,
+            'max_depth_reached': 0,
+            'decision_time': 0,
+            'min_depth_seen': float('inf'),
+            'initial_depth': 0
+        }
 
-    def alpha_beta_pruning(self, board, depth, alpha, beta, maximizing_player, last_move, max_candidates=15):
+        self.killer_moves = {}
+    
+    def reset_metrics(self):
+        """Reset all metrics before a new search"""
+        self.metrics = {
+            'nodes_expanded': 0,
+            'nodes_pruned': 0,
+            'transposition_hits': 0,
+            'quiescence_calls': 0,
+            'max_depth_reached': 0,
+            'decision_time': 0,
+            'min_depth_seen': float('inf'),
+            'initial_depth': 0
+        }
+
+    def init_zobrist_table(self):
         """
-        Args:
-        board: 2D board (GRID_NUM x GRID_NUM)
-        depth: current remaining search depth
-        alpha: best value that MAX has guaranteed
-        beta: best value that MIN has guaranteed
-        maximizing_player: True if Black's turn (MAX), False if White's turn (MIN)
-        last_move: the last move(s) played (StoneMove or Position object(s))
-        max_candidates: max number of candidates considered for branching
-
-        Returns:
-            (score, move) -> numeric evaluation and best move found at this node
+        Each cell (x,y) and each possible stone type (BLACK, WHITE)
+        gets a random 64-bit integer.
         """
-        # terminal conditions
+        random.seed(2024)  # fixed seed for reproducibility
+        table = {}
+        for x in range(Defines.GRID_NUM):
+            for y in range(Defines.GRID_NUM):
+                # Random numbers for BLACK and WHITE stones
+                table[(x, y, Defines.BLACK)] = random.getrandbits(64)
+                table[(x, y, Defines.WHITE)] = random.getrandbits(64)
+        return table
+
+    def compute_board_hash(self, board):
+        """
+        Compute Zobrist hash from scratch (only when needed).
+        """
+        h = 0
+        for x in range(Defines.GRID_NUM):
+            for y in range(Defines.GRID_NUM):
+                cell = board[x][y]
+                # Only hash real stones
+                if cell not in (Defines.BLACK, Defines.WHITE):
+                    continue
+                h ^= self.zobrist_table[(x, y, cell)]
+        return h
+
+    def update_board_hash(self, x, y, color):
+        """
+        Incrementally update hash when placing/removing a stone.
+        Calling this twice with same (x,y,color) restores original hash.
+        """
+        if color not in (Defines.BLACK, Defines.WHITE):
+            return
+        self.current_hash ^= self.zobrist_table[(x, y, color)]
+
+    def alpha_beta_pruning(self, board, depth, alpha, beta, maximizing_player, last_move, max_candidates=40, is_root=False):
+        
+        if is_root:
+            self.reset_metrics()
+            self.current_hash = self.compute_board_hash(board)
+            self.transposition_table.clear()
+            self.metrics['initial_depth'] = depth
+            self.metrics['min_depth_seen'] = depth
+        
+        # Track metrics
+        self.metrics['nodes_expanded'] += 1
+        self.metrics['min_depth_seen'] = min(self.metrics['min_depth_seen'], depth)
+        self.metrics['max_depth_reached'] = self.metrics['initial_depth'] - self.metrics['min_depth_seen']
+        
+        # Check transposition table
+        state_key = self.current_hash
+        if not is_root and state_key in self.transposition_table:
+            cached_depth, cached_score, cached_move, cached_flag = self.transposition_table[state_key]
+            
+            if cached_depth >= depth:
+                self.metrics['transposition_hits'] += 1
+                
+                if cached_flag == 'EXACT':
+                    return (cached_score, cached_move)
+                elif cached_flag == 'LOWERBOUND':
+                    alpha = max(alpha, cached_score)
+                elif cached_flag == 'UPPERBOUND':
+                    beta = min(beta, cached_score)
+                
+                if alpha >= beta:
+                    return (cached_score, cached_move)
+
+        # Terminal conditions
         result = check_game_result(board, last_move)
         if result == Defines.BLACK:
             return (Defines.MAXINT, None)
@@ -55,26 +126,37 @@ class SearchEngine():
             return (0, None)
 
         if depth == 0:
-            # extend tactical lines for stability
             q_score = self.quiescence_search(board, alpha, beta, maximizing_player, last_move)
             return (q_score, None)
 
-        
+        # Check immediate threats
         threats = self.immediate_threats(board, Defines.BLACK if maximizing_player else Defines.WHITE)
         if len(threats) > 1:
-            # create pseudo-moves (StoneMove objects) from threats and return early
             best_threat, second_threat = threats[0], threats[1]
             best_move = StoneMove()
-            best_move.positions = [StonePosition(best_threat[0], best_threat[1]),StonePosition(second_threat[0], second_threat[1])]
-
+            best_move.positions = [
+                StonePosition(best_threat[0], best_threat[1]),
+                StonePosition(second_threat[0], second_threat[1])
+            ]
             return (Defines.MAXINT // 2, best_move)
 
-        # generate StoneMove candidates
-        singles = self.generate_candidate_moves(board, last_move, max_candidates)
-        candidates = generate_candidate_pairs(singles, max_pairs=10)  # returns StoneMoves
-
+        # Generate and order candidates
+        if depth <= 2:
+            effective_candidates = 15  # Even fewer when deep
+        else:
+            effective_candidates = min(max_candidates, 30)
+        
+        singles = self.generate_candidate_moves(board, last_move, effective_candidates)
+        candidates = generate_candidate_pairs(singles, max_pairs=20)  
+        
         if not candidates:
             return (self.evaluate_board(board, last_move), None)
+        
+        # ✅ Order moves BEFORE searching
+        candidates = self.order_moves(board, candidates)
+
+        if depth in self.killer_moves:
+            candidates = self.killer_moves[depth] + candidates
 
         best_move = None
         value = -float("inf") if maximizing_player else float("inf")
@@ -82,23 +164,26 @@ class SearchEngine():
         for move in candidates:
             pos1 = move.positions[0]
             pos2 = move.positions[1]
-
             color = Defines.BLACK if maximizing_player else Defines.WHITE
 
             # Apply move
             board[pos1.x][pos1.y] = color
-            if not (pos2.x == 0 and pos2.y == 0):  # skip dummy second move for first turn
+            self.update_board_hash(pos1.x, pos1.y, color)
+            if not (pos2.x == 0 and pos2.y == 0):
                 board[pos2.x][pos2.y] = color
+                self.update_board_hash(pos2.x, pos2.y, color)
 
-            # Recursive call
+            # Recursive call - ALWAYS returns 2 values
             eval_score, _ = self.alpha_beta_pruning(
-                board, depth - 1, alpha, beta, not maximizing_player, move, max_candidates
+                board, depth - 1, alpha, beta, not maximizing_player, move, max_candidates, is_root=False
             )
-
+            
             # Undo move
             board[pos1.x][pos1.y] = Defines.NOSTONE
+            self.update_board_hash(pos1.x, pos1.y, color)
             if not (pos2.x == 0 and pos2.y == 0):
                 board[pos2.x][pos2.y] = Defines.NOSTONE
+                self.update_board_hash(pos2.x, pos2.y, color)
 
             # Update best
             if maximizing_player:
@@ -112,12 +197,23 @@ class SearchEngine():
                     best_move = move
                 beta = min(beta, value)
 
-            # pruning
+            # Pruning
             if beta <= alpha:
+                self.killer_moves[depth] = [move] + self.killer_moves.get(depth, [])[:1]
+                self.metrics['nodes_pruned'] += 1
                 break
-
-        return value, best_move
         
+        # ✅ Store in transposition table AFTER loop
+        flag = 'EXACT'
+        if value <= alpha:
+            flag = 'UPPERBOUND'
+        elif value >= beta:
+            flag = 'LOWERBOUND'
+        
+        self.transposition_table[state_key] = (depth, value, best_move, flag)
+
+        return value, best_move  # ✅ ALWAYS 2 values
+    
     def check_first_move(self):
         for i in range(1,len(self.m_board)-1):
             for j in range(1, len(self.m_board[i])-1):
@@ -134,7 +230,6 @@ class SearchEngine():
                     if board[x][y] != Defines.NOSTONE
         ]
 
-        # If the board is empty → play in the center
         if not occupied:
             return [(Defines.GRID_NUM // 2, Defines.GRID_NUM // 2)]
 
@@ -172,11 +267,34 @@ class SearchEngine():
                     if 0 <= nx < Defines.GRID_NUM and 0 <= ny < Defines.GRID_NUM:
                         if board[nx][ny] == Defines.NOSTONE:
                             candidates.add((nx, ny))
-
+        def move_score(mv):
+            x, y = mv
+            score = 0
+            
+            # 1. Proximity to last move (tactical focus)
+            if last_positions:
+                min_dist = min(abs(x - lx) + abs(y - ly) for lx, ly in last_positions)
+                score += (10 - min_dist) * 100
+            
+            # 2. Center control bonus
+            center = Defines.GRID_NUM // 2
+            dist_to_center = abs(x - center) + abs(y - center)
+            score += (20 - dist_to_center) * 10
+            
+            # 3. Quick pattern check (count neighbors)
+            neighbors = 0
+            for dx, dy in [(-1,0), (1,0), (0,-1), (0,1), (-1,-1), (1,1), (-1,1), (1,-1)]:
+                nx, ny = x + dx, y + dy
+                if 0 <= nx < Defines.GRID_NUM and 0 <= ny < Defines.GRID_NUM:
+                    if board[nx][ny] != Defines.NOSTONE:
+                        neighbors += 1
+            score += neighbors * 50
+        
+            return score
         # Rank according to heuristic
         sorted_moves = sorted(
             list(candidates),
-            key=lambda mv: move_heuristic(board, mv, last_positions),
+            key=move_score,
             reverse=True
         )
         
@@ -338,9 +456,9 @@ class SearchEngine():
         return total_score
 
     def evaluate_board(self, board, last_positions):
-        state_key = self.board_hash(board)
-        if state_key in self.transposition_table:
-            return self.transposition_table[state_key]
+        # state_key = hex(self.compute_board_hash(board))
+        # if state_key in self.transposition_table:
+        #     return self.transposition_table[state_key]
 
         result = check_game_result(board, last_positions)
         if result == Defines.BLACK:  return Defines.MAXINT
@@ -363,7 +481,7 @@ class SearchEngine():
         )
 
         # store in transposition table before returning
-        self.transposition_table[state_key] = total
+        # self.transposition_table[state_key] = total
         return total
 
     def immediate_threats(self, board, color):
@@ -400,6 +518,8 @@ class SearchEngine():
 
     def quiescence_search(self, board, alpha, beta, maximizing_player, last_move, depth_limit=2):
         """Extend search along noisy tactical lines (e.g., immediate threats)."""
+        self.metrics['quiescence_calls'] += 1
+        
         stand_pat = self.evaluate_board(board, last_move)
         if maximizing_player:
             if stand_pat >= beta:
@@ -438,6 +558,58 @@ class SearchEngine():
 
         return alpha if maximizing_player else beta
     
+    def order_moves(self, board, candidates):
+        center = Defines.GRID_NUM // 2
+        
+        # Pre-compute occupied positions ONCE
+        occupied = set()
+        for x in range(Defines.GRID_NUM):
+            for y in range(Defines.GRID_NUM):
+                if board[x][y] != Defines.NOSTONE:
+                    occupied.add((x, y))
+        
+        def move_priority(move):
+            score = 0
+            pos1, pos2 = move.positions[0], move.positions[1]
+            
+            # 1. Proximity to ANY occupied square (precomputed)
+            if occupied:
+                min_dist = min(
+                    abs(pos1.x - ox) + abs(pos1.y - oy) 
+                    for ox, oy in occupied
+                )
+                if pos2.x != 0:
+                    min_dist2 = min(
+                        abs(pos2.x - ox) + abs(pos2.y - oy) 
+                        for ox, oy in occupied
+                    )
+                    min_dist = min(min_dist, min_dist2)
+                score += (10 - min_dist) * 1000
+            
+            # 2. Center control
+            dist1 = abs(pos1.x - center) + abs(pos1.y - center)
+            dist2 = abs(pos2.x - center) + abs(pos2.y - center) if pos2.x != 0 else 0
+            score -= (dist1 + dist2) * 5
+            
+            # 3. Neighbor count (quick lookup from precomputed set)
+            neighbors = 0
+            for pos in [pos1, pos2]:
+                if pos.x == 0:
+                    continue
+                for dx in [-1, 0, 1]:
+                    for dy in [-1, 0, 1]:
+                        if dx == 0 and dy == 0:
+                            continue
+                        if (pos.x + dx, pos.y + dy) in occupied:
+                            neighbors += 1
+            score += neighbors * 50
+            
+            return score
+        
+        return sorted(candidates, key=move_priority, reverse=True)
+        
+    
+
 def flush_output():
     import sys
     sys.stdout.flush()

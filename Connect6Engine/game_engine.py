@@ -2,31 +2,24 @@ from defines import *
 from tools import init_board, make_move, check_game_result, msg2move, move2msg, print_board, log_to_file
 import sys
 from search_engine import SearchEngine
-
+import time
 
 class GameEngine:
-    def __init__(self, name=Defines.ENGINE_NAME, shared_board=None):
+    def __init__(self, name=Defines.ENGINE_NAME, ):
         if name and len(name) > 0:
             if len(name) < Defines.MSG_LENGTH:
                 self.m_engine_name = name
             else:
                 print(f"Too long Engine Name: {name}, should be less than: {Defines.MSG_LENGTH}")
         
-        self.m_alphabeta_depth = 6
+        self.m_alphabeta_depth = 5
         self.m_search_engine = SearchEngine()
         self.m_best_move = StoneMove()
         self.initialize = False
-        
-        # ✅ Use shared board if provided, otherwise create local board
-        self.shared_board = shared_board
-        if shared_board:
-            self.m_board = shared_board.get_board_reference()
-        else:
-            self.m_board = [[0]*Defines.GRID_NUM for i in range(Defines.GRID_NUM)]
-            self.init_game()
-
-    def init_game(self):
-        init_board(self.m_board)
+        self.metrics = None
+            
+        self.m_board = [[0]*Defines.GRID_NUM for i in range(Defines.GRID_NUM)]
+        self.init_game()
 
     def init_game(self):
         init_board(self.m_board)
@@ -141,38 +134,42 @@ class GameEngine:
     def search_a_move(self, ourColor, bestMove):
         """
         Uses alpha-beta pruning to find the best move for the current color.
-        Uses current board state (possibly from shared board)
         """
         depth = self.m_alphabeta_depth
         maximizing = (ourColor == Defines.BLACK)
         
+        # Handle first move for BLACK
         if not self.initialize and ourColor == Defines.BLACK:
-            print("aquí")
-            move = StoneMove()
-            move.positions[0] = StonePosition(Defines.GRID_NUM // 2, Defines.GRID_NUM // 2)
-            move.positions[1] = StonePosition(Defines.GRID_NUM // 2, Defines.GRID_NUM // 2)
-            
-            pos1 = move.positions[0]
-            pos2 = move.positions[1]
-
-            bestMove.positions[0].x = pos1.x
-            bestMove.positions[0].y = pos1.y
-            bestMove.positions[1].x = pos2.x
-            bestMove.positions[1].y = pos2.y
+            center = Defines.GRID_NUM // 2
+            bestMove.positions[0].x = center
+            bestMove.positions[0].y = center
+            bestMove.positions[1].x = center
+            bestMove.positions[1].y = center
             bestMove.color = ourColor
             self.initialize = True
-            
             return True
 
         # Run alpha-beta search
-        score, move = self.m_search_engine.alpha_beta_pruning(
-            self.m_board,  # ✅ Use current board state
+        start_time = time.perf_counter()
+        
+        score, move = self.m_search_engine.alpha_beta_pruning(  # ✅ Only unpack 2 values
+            self.m_board,
             depth,
-            Defines.MININT, Defines.MAXINT,
+            -float('inf'),
+            float('inf'),
             maximizing,
             bestMove,
-            max_candidates=40
+            max_candidates=40,
+            is_root=True
         )
+
+        self.metrics = self.m_search_engine.metrics
+        
+        # ✅ Access metrics directly from the engine
+        decision_time = time.perf_counter() - start_time
+        self.m_search_engine.metrics['decision_time'] = decision_time
+        
+        self.print_search_metrics(self.m_search_engine.metrics, decision_time)
 
         if move:
             pos1 = move.positions[0]
@@ -189,7 +186,32 @@ class GameEngine:
         else:
             print("No valid move found.")
             return False
+
+    @staticmethod
+    def print_search_metrics(metrics, decision_time):
+        """Print metrics after a search completes"""
+        print(f"\n{'='*50}")
+        print(f"SEARCH METRICS")
+        print(f"{'='*50}")
+        print(f"Decision time:        {decision_time:.3f}s")
+        print(f"Nodes expanded:       {metrics['nodes_expanded']:,}")
+        print(f"Nodes pruned:         {metrics['nodes_pruned']:,}")
+        print(f"Transposition hits:   {metrics['transposition_hits']:,}")
+        print(f"Quiescence calls:     {metrics['quiescence_calls']:,}")
+        print(f"Max depth reached:    {metrics['max_depth_reached']}")
         
+        # Calculate pruning efficiency
+        total_nodes = metrics['nodes_expanded'] + metrics['nodes_pruned']
+        if total_nodes > 0:
+            prune_rate = (metrics['nodes_pruned'] / total_nodes) * 100
+            print(f"Pruning efficiency:   {prune_rate:.1f}%")
+        
+        # Nodes per second
+        if decision_time > 0:
+            nps = metrics['nodes_expanded'] / decision_time
+            print(f"Nodes per second:     {nps:,.0f}")
+    
+
 
 def flush_output():
     sys.stdout.flush()
