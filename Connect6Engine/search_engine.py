@@ -1,5 +1,8 @@
 from tools import *
 import random
+import numpy as np
+import numba
+from collections import OrderedDict
 # 'influence': 0.4833960258781689, 'pattern': 0.5166039741218311
 
 class SearchEngine():
@@ -16,7 +19,8 @@ class SearchEngine():
             "pattern": 0.5166039741218311
         }
         # --- initialize cache for transposition table ---
-        self.transposition_table = {}
+        self.transposition_table = OrderedDict()
+        self.max_table_size = 500000
 
         self.zobrist_table = self.init_zobrist_table()
         self.current_hash = 0
@@ -85,7 +89,7 @@ class SearchEngine():
         self.current_hash ^= self.zobrist_table[(x, y, color)]
 
     def alpha_beta_pruning(self, board, depth, alpha, beta, maximizing_player, last_move, max_candidates=40, is_root=False):
-        
+        self.np_board = np.array(board)
         if is_root:
             self.reset_metrics()
             self.current_hash = self.compute_board_hash(board)
@@ -126,11 +130,11 @@ class SearchEngine():
             return (0, None)
 
         if depth == 0:
-            q_score = self.quiescence_search(board, alpha, beta, maximizing_player, last_move)
+            q_score = self.quiescence_search(alpha, beta, maximizing_player, last_move)
             return (q_score, None)
 
         # Check immediate threats
-        threats = self.immediate_threats(board, Defines.BLACK if maximizing_player else Defines.WHITE)
+        threats = numpy_immediate_threats(self.np_board, Defines.BLACK if maximizing_player else Defines.WHITE, Defines.BLACK, Defines.WHITE, Defines.NOSTONE)
         if len(threats) > 1:
             best_threat, second_threat = threats[0], threats[1]
             best_move = StoneMove()
@@ -210,17 +214,14 @@ class SearchEngine():
         elif value >= beta:
             flag = 'LOWERBOUND'
         
+        if state_key in self.transposition_table:
+            self.transposition_table.move_to_end(state_key)
         self.transposition_table[state_key] = (depth, value, best_move, flag)
+        if len(self.transposition_table) > self.max_table_size:
+            self.transposition_table.popitem(last=False)  # remove LRU/oldest
 
         return value, best_move  # ✅ ALWAYS 2 values
     
-    def check_first_move(self):
-        for i in range(1,len(self.m_board)-1):
-            for j in range(1, len(self.m_board[i])-1):
-                if(self.m_board[i][j] != Defines.NOSTONE):
-                    return False
-        return True
-
     def generate_candidate_moves(self, board, last_move=None, max_candidates=15, radius=3):
         candidates = set()
         # All occupied stones
@@ -300,167 +301,16 @@ class SearchEngine():
         
         return sorted_moves[:max_candidates]
 
-    def pattern_evaluate(self, board, coords):
-        """
-        Tactical pattern-based evaluation that accounts equally for vertical,
-        horizontal, and both diagonal directions.
-        """
-        black_score = 0
-        white_score = 0
-
-        # Use correct direction mapping (row, col)
-        directions = [(0, 1), (1, 0), (1, 1), (1, -1)]
-
-        # Pattern weights for count/open_ends
-        pattern_weights = {
-            (6, 0): 100000,
-            (5, 2): 50000, (5, 1): 20000,
-            (4, 2): 8000,  (4, 1): 3500,
-            (3, 2): 800,   (3, 1): 300,
-            (2, 2): 80,    (2, 1): 40,
-        }
-
-        checked = set()  # avoid recounting same lines
-
-        for (x, y) in coords:
-            color = board[x][y]
-            if color == Defines.NOSTONE:
-                continue
-
-            for dx, dy in directions:
-                key = (x, y, dx, dy)
-                if key in checked:
-                    continue
-                checked.add(key)
-
-                count, open_ends = 1, 0
-
-                # Forward direction
-                nx, ny = x + dx, y + dy
-                while 0 <= nx < Defines.GRID_NUM and 0 <= ny < Defines.GRID_NUM and board[nx][ny] == color:
-                    count += 1
-                    checked.add((nx, ny, dx, dy))
-                    nx += dx
-                    ny += dy
-                if 0 <= nx < Defines.GRID_NUM and 0 <= ny < Defines.GRID_NUM and board[nx][ny] == Defines.NOSTONE:
-                    open_ends += 1
-
-                # Backward direction
-                nx, ny = x - dx, y - dy
-                while 0 <= nx < Defines.GRID_NUM and 0 <= ny < Defines.GRID_NUM and board[nx][ny] == color:
-                    count += 1
-                    checked.add((nx, ny, dx, dy))
-                    nx -= dx
-                    ny -= dy
-                if 0 <= nx < Defines.GRID_NUM and 0 <= ny < Defines.GRID_NUM and board[nx][ny] == Defines.NOSTONE:
-                    open_ends += 1
-
-                # Apply pattern value (blocked lines get low weight)
-                base_val = pattern_weights.get((count, open_ends), 0)
-                if open_ends == 0 and count < 6:
-                    base_val *= 0.5  # blocked pattern penalty
-
-                if color == Defines.BLACK:
-                    black_score += base_val
-                else:
-                    white_score += base_val
-
-        return black_score - white_score
+    def pattern_evaluate(self, coords=None):
+        return self.fast_pattern_evaluate(self.np_board, Defines.BLACK, Defines.WHITE, Defines.NOSTONE, 6)
     
-    def influence_evaluate(self, board):
-        """
-        Enhanced influence evaluation:
-        - Uses geometric decay to reduce long-distance influence
-        - Applies direction multipliers for balancing vertical/horizontal/diagonal importance
-        - Smooth handling of mixed-color windows (partial blocking)
-        - Computes weighted contribution per color
-        """
-        GRID = Defines.GRID_NUM
-        weights = [2**12, 2**11, 2**10, 2**9, 2**8]  # "same" stones 1..5
-        empty_weight = 2
-
-        # Four canonical directions (vertical, horizontal, diagonals)
-        directions = [(1, 0), (0, 1), (1, 1), (1, -1)]
-
-        # You can tweak these multipliers if one direction tends to dominate or lag.
-        direction_multipliers = {
-            (1, 0): 1.5,   # vertical
-            (0, 1): 1.0,   # horizontal
-            (1, 1): 1.0,   # main diagonal
-            (1, -1): 1.0,  # anti-diagonal
-        }
-
-        total_score = 0
-
-        for x in range(GRID):
-            for y in range(GRID):
-                color = board[x][y]
-                if color == Defines.NOSTONE:
-                    continue
-
-                color_sign = 1 if color == Defines.BLACK else -1
-
-                for dx, dy in directions:
-                    dir_mult = direction_multipliers[(dx, dy)]
-
-                    # Collect up to 11 cells (5 before, current, 5 after)
-                    line = []
-                    for step in range(-5, 6):
-                        nx, ny = x + step * dx, y + step * dy
-                        if 0 <= nx < GRID and 0 <= ny < GRID:
-                            line.append(board[nx][ny])
-                        else:
-                            line.append(None)  # outside bounds
-
-                    # Scan sliding window of 6 cells
-                    for i in range(len(line) - 5):
-                        window = line[i:i + 6]
-
-                        # Count values
-                        same = window.count(color)
-                        empty = window.count(Defines.NOSTONE)
-                        opp = 6 - same - empty if None not in window else 0  # within bounds
-
-                        # skip all-empty or off-board windows
-                        if same <= 0 or None in window:
-                            continue
-
-                        # Compute distance-based geometric decay weighting:
-                        # closer stones have higher influence
-                        mid = i + 3
-                        decay_factor = 0.0
-                        for j, cell in enumerate(window):
-                            if cell == color:
-                                dist = abs(j - 3)  # distance from center
-                                decay_factor += (0.95 ** dist)
-                        decay_factor /= same  # normalize per same-colored stones
-
-                        # Smoothed mixed-color handling:
-                        # If mixed (both colors in window), scale down proportionally
-                        if opp > 0:
-                            block_ratio = (6 - opp) / 6.0  # e.g. 1.0 if no opponent, lower otherwise
-                        else:
-                            block_ratio = 1.0
-
-                        # Determine index safely
-                        if same >= 6:
-                            contrib = 1000000.0
-                        else:
-                            idx = min(same - 1, len(weights) - 1)
-                            contrib = weights[idx] * (empty_weight ** empty)
-
-                        # Apply all modifiers and accumulate
-                        contrib *= dir_mult * decay_factor * block_ratio * color_sign
-                        total_score += contrib
-
-        return total_score
-
+    def influence_evaluate(self,):
+        board_np = self.np_board
+        return self.fast_influence_evaluate(board_np, Defines.BLACK, Defines.WHITE, Defines.NOSTONE)
+    
     def evaluate_board(self, board, last_positions):
-        # state_key = hex(self.compute_board_hash(board))
-        # if state_key in self.transposition_table:
-        #     return self.transposition_table[state_key]
 
-        result = check_game_result(board, last_positions)
+        result = check_game_result_numpy(self.np_board, last_positions)
         if result == Defines.BLACK:  return Defines.MAXINT
         if result == Defines.WHITE:  return Defines.MININT
         if result == Defines.DRAW:   return 0
@@ -473,7 +323,7 @@ class SearchEngine():
         if not coords:
             return 0
 
-        influence_score = self.influence_evaluate(board)
+        influence_score = self.influence_evaluate()
         pattern_score = self.pattern_evaluate(board, coords)
         total = (
             self.weights["influence"] * influence_score
@@ -483,44 +333,21 @@ class SearchEngine():
         # store in transposition table before returning
         # self.transposition_table[state_key] = total
         return total
+    
+    def quiescence_search(self, alpha, beta, maximizing_player, last_move, depth_limit=2):
+        board_np = self.np_board
+        color = Defines.BLACK if maximizing_player else Defines.WHITE
+        BLACK = Defines.BLACK
+        WHITE = Defines.WHITE
+        NOSTONE = Defines.NOSTONE
+        self.metrics["quiescence_calls"]+=1
 
-    def immediate_threats(self, board, color):
-        """
-        Detect immediate winning or blocking threats.
-        Returns a list of (x, y) positions that either
-        complete 6-in-a-row or block the opponent's imminent win.
-        """
-        threats = []
-        opponent = Defines.BLACK if color == Defines.WHITE else Defines.WHITE
-
-        for x in range(Defines.GRID_NUM):
-            for y in range(Defines.GRID_NUM):
-                if board[x][y] != Defines.NOSTONE:
-                    continue
-
-                # --- Simulate placing a stone for the current player ---
-                board[x][y] = color
-                if check_game_result(board, [(x, y)]) == color:
-                    # this move wins immediately
-                    threats.append((x, y))
-                    board[x][y] = Defines.NOSTONE
-                    continue
-                board[x][y] = Defines.NOSTONE
-
-                # --- Simulate opponent placing a stone (check defense) ---
-                board[x][y] = opponent
-                if check_game_result(board, [(x, y)]) == opponent:
-                    # opponent could win here next move → must block
-                    threats.append((x, y))
-                board[x][y] = Defines.NOSTONE
-
-        return threats
-
-    def quiescence_search(self, board, alpha, beta, maximizing_player, last_move, depth_limit=2):
-        """Extend search along noisy tactical lines (e.g., immediate threats)."""
-        self.metrics['quiescence_calls'] += 1
-        
-        stand_pat = self.evaluate_board(board, last_move)
+        return self.fast_quiescence_search(
+            board_np, alpha, beta, maximizing_player, last_move, color, BLACK, WHITE, NOSTONE, depth_limit
+    )
+    
+    def fast_quiescence_search(self, board_np, alpha, beta, maximizing_player, last_move, color, BLACK, WHITE, NOSTONE, depth_limit):
+        stand_pat = self.influence_evaluate()
         if maximizing_player:
             if stand_pat >= beta:
                 return beta
@@ -531,20 +358,17 @@ class SearchEngine():
                 return alpha
             if stand_pat < beta:
                 beta = stand_pat
-
         if depth_limit <= 0:
             return stand_pat
-
-        threats = self.immediate_threats(board, Defines.BLACK if maximizing_player else Defines.WHITE)
-        if not threats:
+        threats = numpy_immediate_threats(board_np, color, BLACK, WHITE, NOSTONE)
+        if len(threats) == 0:
             return stand_pat
-
-        for (x, y) in threats:
-            color = Defines.BLACK if maximizing_player else Defines.WHITE
-            board[x][y] = color
-            score = -self.quiescence_search(board, -beta, -alpha, not maximizing_player, [(x, y)], depth_limit-1)
-            board[x][y] = Defines.NOSTONE
-
+        for k in range(len(threats)):
+            x, y = threats[k]
+            board_np[x, y] = color
+            score = -self.fast_quiescence_search(board_np, -beta, -alpha, not maximizing_player, [(x, y)], 
+                                            self.opponent_color(color), BLACK, WHITE, NOSTONE, depth_limit-1)
+            board_np[x, y] = NOSTONE
             if maximizing_player:
                 if score >= beta:
                     return beta
@@ -555,61 +379,264 @@ class SearchEngine():
                     return alpha
                 if score < beta:
                     beta = score
-
         return alpha if maximizing_player else beta
     
     def order_moves(self, board, candidates):
         center = Defines.GRID_NUM // 2
-        
-        # Pre-compute occupied positions ONCE
-        occupied = set()
-        for x in range(Defines.GRID_NUM):
-            for y in range(Defines.GRID_NUM):
-                if board[x][y] != Defines.NOSTONE:
-                    occupied.add((x, y))
-        
+        GRID = Defines.GRID_NUM
+
+        # Create occupied set and NumPy versions for fast operations
+        occupied = set(
+            (x, y)
+            for x in range(GRID)
+            for y in range(GRID)
+            if board[x][y] != Defines.NOSTONE
+        )
+
+        if not occupied:
+            # Rare case: board is empty, nothing to sort
+            return candidates
+
+        occupied_arr = np.array(list(occupied), dtype=np.int32)
+        board_np = np.array([[board[x][y] != Defines.NOSTONE for y in range(GRID)] for x in range(GRID)], dtype=bool)
+        neighbor_offsets = [(-1,0), (1,0), (0,-1), (0,1), (-1,-1), (1,1), (-1,1), (1,-1)]
+
+        def min_manhattan(pos, occarr):
+            # pos: np.array([x, y]), occarr: N x 2 array
+            return np.min(np.abs(pos[0] - occarr[:,0]) + np.abs(pos[1] - occarr[:,1]))
+
+        def neighbor_count(x, y):
+            n = 0
+            for dx, dy in neighbor_offsets:
+                nx, ny = x + dx, y + dy
+                if 0 <= nx < GRID and 0 <= ny < GRID:
+                    if board_np[nx, ny]:
+                        n += 1
+            return n
+
         def move_priority(move):
             score = 0
             pos1, pos2 = move.positions[0], move.positions[1]
-            
-            # 1. Proximity to ANY occupied square (precomputed)
-            if occupied:
-                min_dist = min(
-                    abs(pos1.x - ox) + abs(pos1.y - oy) 
-                    for ox, oy in occupied
-                )
+
+            # Manhattan proximity to any occupied cell (vectorized)
+            if occupied_arr.shape[0]:
+                p1 = np.array([pos1.x, pos1.y])
+                min_dist = min_manhattan(p1, occupied_arr)
                 if pos2.x != 0:
-                    min_dist2 = min(
-                        abs(pos2.x - ox) + abs(pos2.y - oy) 
-                        for ox, oy in occupied
-                    )
+                    p2 = np.array([pos2.x, pos2.y])
+                    min_dist2 = min_manhattan(p2, occupied_arr)
                     min_dist = min(min_dist, min_dist2)
                 score += (10 - min_dist) * 1000
-            
-            # 2. Center control
+
+            # Center control (as before)
             dist1 = abs(pos1.x - center) + abs(pos1.y - center)
             dist2 = abs(pos2.x - center) + abs(pos2.y - center) if pos2.x != 0 else 0
             score -= (dist1 + dist2) * 5
-            
-            # 3. Neighbor count (quick lookup from precomputed set)
-            neighbors = 0
-            for pos in [pos1, pos2]:
-                if pos.x == 0:
-                    continue
-                for dx in [-1, 0, 1]:
-                    for dy in [-1, 0, 1]:
-                        if dx == 0 and dy == 0:
-                            continue
-                        if (pos.x + dx, pos.y + dy) in occupied:
-                            neighbors += 1
-            score += neighbors * 50
-            
-            return score
-        
-        return sorted(candidates, key=move_priority, reverse=True)
-        
-    
 
+            # Fast NumPy-based neighbor count
+            neighbors = 0
+            if pos1.x != 0:
+                neighbors += neighbor_count(pos1.x, pos1.y)
+            if pos2.x != 0:
+                neighbors += neighbor_count(pos2.x, pos2.y)
+            score += neighbors * 50
+
+            return score
+
+        return sorted(candidates, key=move_priority, reverse=True)
+
+    @staticmethod
+    @numba.njit
+    def fast_pattern_evaluate(board, BLACK, WHITE, NOSTONE, win_length=6):
+        N = board.shape[0]
+        # weights: index [stones][open_ends]
+        weights = np.zeros((7, 3))
+        weights[6, 0] = 100000
+        weights[5, 2] = 50000
+        weights[5, 1] = 20000
+        weights[4, 2] = 8000
+        weights[4, 1] = 3500
+        weights[3, 2] = 800
+        weights[3, 1] = 300
+        weights[2, 2] = 80
+        weights[2, 1] = 40
+
+        directions = np.array([
+            [0, 1], [1, 0], [1, 1], [1, -1]
+        ])
+        visited = np.zeros((N, N, 4), dtype=np.bool_)
+
+        black_score = 0.0
+        white_score = 0.0
+
+        for x in range(N):
+            for y in range(N):
+                color = board[x, y]
+                if color == NOSTONE:
+                    continue
+                for d in range(4):
+                    if visited[x, y, d]:
+                        continue
+                    visited[x, y, d] = True
+
+                    dx, dy = directions[d]
+                    cnt, open_ends = 1, 0
+
+                    # Forward
+                    nx, ny = x + dx, y + dy
+                    while 0 <= nx < N and 0 <= ny < N and board[nx, ny] == color:
+                        cnt += 1
+                        visited[nx, ny, d] = True
+                        nx += dx
+                        ny += dy
+                    if 0 <= nx < N and 0 <= ny < N and board[nx, ny] == NOSTONE:
+                        open_ends += 1
+
+                    # Backward
+                    nx, ny = x - dx, y - dy
+                    while 0 <= nx < N and 0 <= ny < N and board[nx, ny] == color:
+                        cnt += 1
+                        visited[nx, ny, d] = True
+                        nx -= dx
+                        ny -= dy
+                    if 0 <= nx < N and 0 <= ny < N and board[nx, ny] == NOSTONE:
+                        open_ends += 1
+
+                    if cnt > 6:
+                        cnt = 6 # capping for lookup
+                    v = weights[cnt, open_ends] if open_ends > 0 else weights[cnt, open_ends] * 0.5
+                    if color == BLACK:
+                        black_score += v
+                    else:
+                        white_score += v
+        return black_score - white_score
+    
+    @staticmethod
+    @numba.njit
+    def fast_influence_evaluate(board, BLACK, WHITE, NOSTONE):
+        N = board.shape[0]
+        # Weights can be precomputed as arrays
+        weights = np.array([4096, 2048, 1024, 512, 256], dtype=np.float64)
+        directions = np.array([
+            [1, 0], [0, 1], [1, 1], [1, -1]
+        ])
+        direction_multipliers = np.array([1.5, 1.0, 1.0, 1.0])
+        total_score = 0.0
+
+        for x in range(N):
+            for y in range(N):
+                color = board[x, y]
+                if color == NOSTONE:
+                    continue
+                color_sign = 1 if color == BLACK else -1
+                for d in range(4):
+                    dx, dy = directions[d]
+                    dir_mult = direction_multipliers[d]
+                    # Build the line
+                    line = []
+                    for step in range(-5, 6):
+                        nx, ny = x + step*dx, y + step*dy
+                        if 0 <= nx < N and 0 <= ny < N:
+                            line.append(board[nx, ny])
+                        else:
+                            line.append(-99)  # Off-board indicator
+                    line = np.array(line)
+                    # Sliding window
+                    for i in range(6):
+                        window = line[i:i+6]
+                        # Skip if any are off-board
+                        if np.any(window == -99):
+                            continue
+                        same = np.sum(window == color)
+                        empty = np.sum(window == NOSTONE)
+                        opp = 6 - same - empty
+                        if same <= 0:
+                            continue
+                        # Decay weighting
+                        decay_factor = 0.0
+                        for j in range(6):
+                            if window[j] == color:
+                                dist = abs(j - 3)
+                                decay_factor += (0.95 ** dist)
+                        decay_factor /= same
+                        block_ratio = (6 - opp) / 6.0 if opp > 0 else 1.0
+                        if same >= 6:
+                            contrib = 1000000.0
+                        else:
+                            idx = min(same-1, 4)
+                            contrib = weights[idx] * (2**empty)
+                        contrib *= dir_mult * decay_factor * block_ratio * color_sign
+                        total_score += contrib
+        return total_score
+    
+    @staticmethod
+    def opponent_color(color):
+        if color == Defines.BLACK:
+            return Defines.WHITE
+        elif color == Defines.WHITE:
+            return Defines.BLACK
+        return Defines.NOSTONE
+    
+@numba.njit    
+def numpy_immediate_threats(board_np, color, BLACK, WHITE, NOSTONE):
+    N = board_np.shape[0]
+
+    opponent = BLACK if color == WHITE else WHITE
+    MAX_THREATS = 1000  # An upper bound that's safe for your board size
+    threats = np.zeros((MAX_THREATS,2), dtype=np.int32)
+    num_threats = 0
+    # Find all NOSTONE positions
+    empties = np.argwhere(board_np == NOSTONE)
+    for i in range(empties.shape[0]):
+        x, y = empties[i]
+        # Try as current color
+        board_np[x, y] = color
+        win = check_game_result_numpy(board_np, x, y, color)
+        board_np[x, y] = NOSTONE
+        if win:
+            threats[num_threats,0] = x
+            threats[num_threats,1] = y
+            num_threats += 1
+            continue
+        # Try as opponent
+        board_np[x, y] = opponent
+        opp_win = check_game_result_numpy(board_np, x, y, opponent)
+        board_np[x, y] = NOSTONE
+        if opp_win:
+            threats[num_threats,0] = x
+            threats[num_threats,1] = y
+            num_threats += 1
+            continue
+    return threats[:num_threats]
+
+@numba.njit
+def check_game_result_numpy(board, x, y, color, win_length=6):
+    N = board.shape[0]
+    directions = np.array([
+        (1, 0),   # vertical
+        (0, 1),   # horizontal
+        (1, 1),   # main diagonal
+        (1, -1),  # anti-diagonal
+    ])
+    for dx, dy in directions:
+        count = 1
+        # Forward direction
+        nx, ny = x + dx, y + dy
+        while 0 <= nx < N and 0 <= ny < N and board[nx, ny] == color:
+            count += 1
+            nx += dx
+            ny += dy
+        # Backward direction
+        nx, ny = x - dx, y - dy
+        while 0 <= nx < N and 0 <= ny < N and board[nx, ny] == color:
+            count += 1
+            nx -= dx
+            ny -= dy
+        if count >= win_length:
+            return True
+    return False
+
+    
 def flush_output():
     import sys
     sys.stdout.flush()

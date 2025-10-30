@@ -4,6 +4,9 @@ import sys
 from search_engine import SearchEngine
 import time
 
+import cProfile
+import pstats
+
 class GameEngine:
     def __init__(self, name=Defines.ENGINE_NAME, ):
         if name and len(name) > 0:
@@ -12,7 +15,7 @@ class GameEngine:
             else:
                 print(f"Too long Engine Name: {name}, should be less than: {Defines.MSG_LENGTH}")
         
-        self.m_alphabeta_depth = 5
+        self.m_alphabeta_depth = 6
         self.m_search_engine = SearchEngine()
         self.m_best_move = StoneMove()
         self.initialize = False
@@ -186,7 +189,7 @@ class GameEngine:
         else:
             print("No valid move found.")
             return False
-
+    
     @staticmethod
     def print_search_metrics(metrics, decision_time):
         """Print metrics after a search completes"""
@@ -211,6 +214,20 @@ class GameEngine:
             nps = metrics['nodes_expanded'] / decision_time
             print(f"Nodes per second:     {nps:,.0f}")
     
+
+    def run_profiling(self):
+        engine = SearchEngine()
+        # Setup dummy board and parameters as needed:
+        board = self.m_board
+        depth = 5    # Example depth
+
+        profiler = cProfile.Profile()
+        profiler.enable()
+        engine.alpha_beta_pruning(board, depth, -float('inf'), float('inf'), True, None, is_root=True)
+        profiler.disable()
+
+        stats = pstats.Stats(profiler).sort_stats('cumtime')
+        stats.print_stats(30)  # Show top 30 time-consuming functions
 
 
 def flush_output():
