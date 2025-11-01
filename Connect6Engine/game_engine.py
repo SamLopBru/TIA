@@ -15,7 +15,7 @@ class GameEngine:
             else:
                 print(f"Too long Engine Name: {name}, should be less than: {Defines.MSG_LENGTH}")
         
-        self.m_alphabeta_depth = 6
+        self.m_alphabeta_depth = 4
         self.m_search_engine = SearchEngine()
         self.m_best_move = StoneMove()
         self.initialize = False
