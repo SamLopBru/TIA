@@ -1,2 +1,21 @@
 [Mon Oct 27 12:03:22 202] - new black
 [Mon Oct 27 12:03:25 202] - move LLMM
+[Thu Nov 13 14:33:00 202] - new black
+[Thu Nov 13 14:33:03 202] - move LLMM
+[Thu Nov 13 14:33:11 202] - print
+[Thu Nov 13 14:33:16 202] - move AABB
+[Thu Nov 13 14:33:19 202] - print
+[Thu Nov 13 14:33:38 202] - new white
+[Thu Nov 13 14:33:42 202] - move JJ
+[Thu Nov 13 14:33:50 202] - print
+[Thu Nov 13 14:34:00 202] - move KJKI
+[Thu Nov 13 14:34:06 202] - print
+[Thu Nov 13 14:36:27 202] - new black
+[Thu Nov 13 14:36:30 202] - move LLMM
+[Thu Nov 13 14:36:36 202] - print
+[Thu Nov 13 14:36:39 202] - move AABB
+[Thu Nov 13 14:36:42 202] - exit
+[Thu Nov 13 14:36:50 202] - new white
+[Thu Nov 13 14:36:54 202] - move JJ
+[Thu Nov 13 14:37:04 202] - move LLMM
+[Thu Nov 13 14:37:06 202] - print

@@ -1,3 +1,11 @@
+"""
+Connect-6 game engine with alpha-beta pruning search.
+
+This module implements a SearchEngine class for playing Connect-6 using
+alpha-beta pruning with transposition tables, Zobrist hashing, and advanced
+move ordering techniques.
+"""
+
 from tools import *
 import random
 import numpy as np
@@ -6,6 +14,43 @@ from collections import OrderedDict
 # 'influence': 0.4833960258781689, 'pattern': 0.5166039741218311
 
 class SearchEngine():
+    """
+    Game tree search engine using alpha-beta pruning for Connect-6.
+    
+    This class implements an optimized minimax search with alpha-beta pruning,
+    transposition tables, Zobrist hashing, killer move heuristics, and
+    quiescence search for tactical positions.
+    
+    Attributes
+    ----------
+    m_board : list or None
+        Current game board state
+    m_chess_type : int or None
+        Type of chess piece
+    m_alphabeta_depth : int or None
+        Maximum search depth for alpha-beta pruning
+    m_total_nodes : int
+        Total number of nodes explored
+    last_positions : tuple or None
+        Last move positions
+    stone_count : int
+        Number of stones on the board
+    weights : dict
+        Evaluation function weights for influence and pattern scoring
+    transposition_table : OrderedDict
+        Cache for previously evaluated positions
+    max_table_size : int
+        Maximum number of entries in transposition table
+    zobrist_table : dict
+        Zobrist hash values for incremental hashing
+    current_hash : int
+        Current board position hash
+    metrics : dict
+        Performance metrics for search diagnostics
+    killer_moves : dict
+        Killer move heuristic storage by depth
+    """
+
     def __init__(self):
         self.m_board = None
         self.m_chess_type = None
@@ -39,7 +84,12 @@ class SearchEngine():
         self.killer_moves = {}
     
     def reset_metrics(self):
-        """Reset all metrics before a new search"""
+        """
+        Reset all metrics before a new search.
+        
+        Clears counters for nodes expanded, pruned, transposition hits,
+        and other diagnostic information.
+        """
         self.metrics = {
             'nodes_expanded': 0,
             'nodes_pruned': 0,
@@ -53,8 +103,15 @@ class SearchEngine():
 
     def init_zobrist_table(self):
         """
+        Initialize Zobrist hash table for incremental position hashing.
+        
         Each cell (x,y) and each possible stone type (BLACK, WHITE)
-        gets a random 64-bit integer.
+        gets a random 64-bit integer for fast position hashing.
+        
+        Returns
+        -------
+        dict
+            Zobrist table mapping (x, y, color) to 64-bit hash values
         """
         random.seed(2024)  # fixed seed for reproducibility
         table = {}
@@ -67,7 +124,17 @@ class SearchEngine():
 
     def compute_board_hash(self, board):
         """
-        Compute Zobrist hash from scratch (only when needed).
+        Compute Zobrist hash from scratch for current board position.
+        
+        Parameters
+        ----------
+        board : list of list
+            Current board state
+            
+        Returns
+        -------
+        int
+            64-bit Zobrist hash of the position
         """
         h = 0
         for x in range(Defines.GRID_NUM):
@@ -81,14 +148,55 @@ class SearchEngine():
 
     def update_board_hash(self, x, y, color):
         """
-        Incrementally update hash when placing/removing a stone.
+        Incrementally update hash when placing or removing a stone.
+        
         Calling this twice with same (x,y,color) restores original hash.
+        
+        Parameters
+        ----------
+        x : int
+            Row coordinate
+        y : int
+            Column coordinate
+        color : int
+            Stone color (BLACK or WHITE)
         """
         if color not in (Defines.BLACK, Defines.WHITE):
             return
         self.current_hash ^= self.zobrist_table[(x, y, color)]
 
     def alpha_beta_pruning(self, board, depth, alpha, beta, maximizing_player, last_move, max_candidates=40, is_root=False):
+        """
+        Perform alpha-beta pruning search to find best move.
+        
+        Implements minimax search with alpha-beta pruning, transposition tables,
+        killer move heuristics, and quiescence search for tactical positions.
+        
+        Parameters
+        ----------
+        board : list of list
+            Current board state
+        depth : int
+            Remaining search depth
+        alpha : float
+            Best score for maximizing player
+        beta : float
+            Best score for minimizing player
+        maximizing_player : bool
+            True if current player is maximizing
+        last_move : StoneMove or tuple
+            Last move played
+        max_candidates : int, optional
+            Maximum candidate moves to consider (default: 40)
+        is_root : bool, optional
+            True if this is the root of the search tree (default: False)
+            
+        Returns
+        -------
+        tuple
+            (score, best_move) where score is evaluation and best_move is StoneMove
+        """
+        
         self.np_board = np.array(board)
         if is_root:
             self.reset_metrics()
@@ -223,6 +331,28 @@ class SearchEngine():
         return value, best_move  # ✅ ALWAYS 2 values
     
     def generate_candidate_moves(self, board, last_move=None, max_candidates=15, radius=3):
+        """
+        Generate candidate move positions based on occupied stones.
+        
+        Creates a set of empty positions within a radius of occupied stones
+        and last move, prioritizing tactical positions near recent activity.
+        
+        Parameters
+        ----------
+        board : list of list
+            Current board state
+        last_move : StoneMove or tuple or list, optional
+            Last move(s) played (default: None)
+        max_candidates : int, optional
+            Maximum number of candidates to return (default: 15)
+        radius : int, optional
+            Search radius around occupied stones (default: 3)
+            
+        Returns
+        -------
+        list of tuple
+            List of (x, y) coordinates sorted by tactical value
+        """
         candidates = set()
         # All occupied stones
         occupied = [
@@ -269,6 +399,19 @@ class SearchEngine():
                         if board[nx][ny] == Defines.NOSTONE:
                             candidates.add((nx, ny))
         def move_score(mv):
+            """
+            Compute heuristic score for a candidate move position.
+            
+            Parameters
+            ----------
+            mv : tuple
+                (x, y) coordinate of candidate position
+                
+            Returns
+            -------
+            float
+                Heuristic score for move ordering
+            """
             x, y = mv
             score = 0
             
@@ -302,13 +445,51 @@ class SearchEngine():
         return sorted_moves[:max_candidates]
 
     def pattern_evaluate(self, coords=None):
+        """
+        Evaluate board position based on pattern recognition.
+        
+        Parameters
+        ----------
+        coords : list of tuple, optional
+            Stone coordinates (default: None)
+            
+        Returns
+        -------
+        float
+            Pattern-based evaluation score
+        """
         return self.fast_pattern_evaluate(self.np_board, Defines.BLACK, Defines.WHITE, Defines.NOSTONE, 6)
     
     def influence_evaluate(self,):
+        """
+        Evaluate board position based on influence/control.
+        
+        Returns
+        -------
+        float
+            Influence-based evaluation score
+        """
         board_np = self.np_board
         return self.fast_influence_evaluate(board_np, Defines.BLACK, Defines.WHITE, Defines.NOSTONE)
     
     def evaluate_board(self, board, last_positions):
+        """
+        Evaluate current board position using weighted heuristics.
+        
+        Combines influence and pattern evaluation with configurable weights.
+        
+        Parameters
+        ----------
+        board : list of list
+            Current board state
+        last_positions : tuple or StoneMove
+            Last move played
+            
+        Returns
+        -------
+        float
+            Overall evaluation score (positive favors BLACK, negative favors WHITE)
+        """
 
         result = check_game_result_numpy(self.np_board, last_positions)
         if result == Defines.BLACK:  return Defines.MAXINT
@@ -335,6 +516,30 @@ class SearchEngine():
         return total
     
     def quiescence_search(self, alpha, beta, maximizing_player, last_move, depth_limit=2):
+        """
+        Perform quiescence search to resolve tactical sequences.
+        
+        Extends search in tactical positions with immediate threats to avoid
+        horizon effects and improve tactical awareness.
+        
+        Parameters
+        ----------
+        alpha : float
+            Best score for maximizing player
+        beta : float
+            Best score for minimizing player
+        maximizing_player : bool
+            True if current player is maximizing
+        last_move : tuple or StoneMove
+            Last move played
+        depth_limit : int, optional
+            Maximum quiescence depth (default: 2)
+            
+        Returns
+        -------
+        float
+            Quiescence evaluation score
+        """
         board_np = self.np_board
         color = Defines.BLACK if maximizing_player else Defines.WHITE
         BLACK = Defines.BLACK
@@ -347,6 +552,37 @@ class SearchEngine():
     )
     
     def fast_quiescence_search(self, board_np, alpha, beta, maximizing_player, last_move, color, BLACK, WHITE, NOSTONE, depth_limit):
+        """
+        Fast quiescence search implementation.
+        
+        Parameters
+        ----------
+        board_np : numpy.ndarray
+            Board as NumPy array
+        alpha : float
+            Best score for maximizing player
+        beta : float
+            Best score for minimizing player
+        maximizing_player : bool
+            True if current player is maximizing
+        last_move : tuple
+            Last move coordinate
+        color : int
+            Current player color
+        BLACK : int
+            Black stone constant
+        WHITE : int
+            White stone constant
+        NOSTONE : int
+            Empty cell constant
+        depth_limit : int
+            Remaining quiescence depth
+            
+        Returns
+        -------
+        float
+            Quiescence score
+        """
         stand_pat = self.influence_evaluate()
         if maximizing_player:
             if stand_pat >= beta:
@@ -382,6 +618,24 @@ class SearchEngine():
         return alpha if maximizing_player else beta
     
     def order_moves(self, board, candidates):
+        """
+        Order candidate moves using heuristics for better pruning.
+        
+        Prioritizes moves based on proximity to occupied stones, center control,
+        and connectivity to improve alpha-beta pruning efficiency.
+        
+        Parameters
+        ----------
+        board : list of list
+            Current board state
+        candidates : list of StoneMove
+            Candidate moves to order
+            
+        Returns
+        -------
+        list of StoneMove
+            Sorted candidate moves (best first)
+        """
         center = Defines.GRID_NUM // 2
         GRID = Defines.GRID_NUM
 
@@ -402,10 +656,40 @@ class SearchEngine():
         neighbor_offsets = [(-1,0), (1,0), (0,-1), (0,1), (-1,-1), (1,1), (-1,1), (1,-1)]
 
         def min_manhattan(pos, occarr):
+            """
+            Compute minimum Manhattan distance to any occupied cell.
+            
+            Parameters
+            ----------
+            pos : numpy.ndarray
+                Position [x, y]
+            occarr : numpy.ndarray
+                Array of occupied positions (N x 2)
+                
+            Returns
+            -------
+            int
+                Minimum Manhattan distance
+            """
             # pos: np.array([x, y]), occarr: N x 2 array
             return np.min(np.abs(pos[0] - occarr[:,0]) + np.abs(pos[1] - occarr[:,1]))
 
         def neighbor_count(x, y):
+            """
+            Count neighboring stones around a position.
+            
+            Parameters
+            ----------
+            x : int
+                Row coordinate
+            y : int
+                Column coordinate
+                
+            Returns
+            -------
+            int
+                Number of neighboring stones
+            """
             n = 0
             for dx, dy in neighbor_offsets:
                 nx, ny = x + dx, y + dy
@@ -415,6 +699,19 @@ class SearchEngine():
             return n
 
         def move_priority(move):
+            """
+            Calculate priority score for move ordering.
+            
+            Parameters
+            ----------
+            move : StoneMove
+                Candidate move to evaluate
+                
+            Returns
+            -------
+            float
+                Priority score (higher is better)
+            """
             score = 0
             pos1, pos2 = move.positions[0], move.positions[1]
 
@@ -448,6 +745,30 @@ class SearchEngine():
     @staticmethod
     @numba.njit
     def fast_pattern_evaluate(board, BLACK, WHITE, NOSTONE, win_length=6):
+        """
+        Fast pattern-based evaluation using Numba JIT compilation.
+        
+        Detects and scores patterns of consecutive stones with varying
+        numbers of open ends using vectorized operations.
+        
+        Parameters
+        ----------
+        board : numpy.ndarray
+            Board state as 2D NumPy array
+        BLACK : int
+            Black stone constant
+        WHITE : int
+            White stone constant
+        NOSTONE : int
+            Empty cell constant
+        win_length : int, optional
+            Winning sequence length (default: 6)
+            
+        Returns
+        -------
+        float
+            Pattern evaluation score (positive favors BLACK)
+        """
         N = board.shape[0]
         # weights: index [stones][open_ends]
         weights = np.zeros((7, 3))
@@ -514,6 +835,28 @@ class SearchEngine():
     @staticmethod
     @numba.njit
     def fast_influence_evaluate(board, BLACK, WHITE, NOSTONE):
+        """
+        Fast influence-based evaluation using Numba JIT compilation.
+        
+        Evaluates board control by analyzing potential sequences in all
+        directions with decay factors and blocking considerations.
+        
+        Parameters
+        ----------
+        board : numpy.ndarray
+            Board state as 2D NumPy array
+        BLACK : int
+            Black stone constant
+        WHITE : int
+            White stone constant
+        NOSTONE : int
+            Empty cell constant
+            
+        Returns
+        -------
+        float
+            Influence evaluation score (positive favors BLACK)
+        """
         N = board.shape[0]
         # Weights can be precomputed as arrays
         weights = np.array([4096, 2048, 1024, 512, 256], dtype=np.float64)
@@ -571,6 +914,19 @@ class SearchEngine():
     
     @staticmethod
     def opponent_color(color):
+        """
+        Get the opponent's stone color.
+        
+        Parameters
+        ----------
+        color : int
+            Current player color (BLACK or WHITE)
+            
+        Returns
+        -------
+        int
+            Opponent color (WHITE if BLACK, BLACK if WHITE, or NOSTONE)
+        """
         if color == Defines.BLACK:
             return Defines.WHITE
         elif color == Defines.WHITE:
@@ -579,6 +935,30 @@ class SearchEngine():
     
 @numba.njit    
 def numpy_immediate_threats(board_np, color, BLACK, WHITE, NOSTONE):
+    """
+    Find all immediate winning or blocking threats on the board.
+    
+    Identifies positions where placing a stone would immediately win for
+    either the current player or opponent, enabling tactical responses.
+    
+    Parameters
+    ----------
+    board_np : numpy.ndarray
+        Board state as 2D NumPy array
+    color : int
+        Current player color
+    BLACK : int
+        Black stone constant
+    WHITE : int
+        White stone constant
+    NOSTONE : int
+        Empty cell constant
+        
+    Returns
+    -------
+    numpy.ndarray
+        Array of (x, y) threat positions, shape (N, 2)
+    """
     N = board_np.shape[0]
 
     opponent = BLACK if color == WHITE else WHITE
@@ -611,6 +991,30 @@ def numpy_immediate_threats(board_np, color, BLACK, WHITE, NOSTONE):
 
 @numba.njit
 def check_game_result_numpy(board, x, y, color, win_length=6):
+    """
+    Check if a move at (x, y) creates a winning sequence.
+    
+    Examines all four directions (horizontal, vertical, and two diagonals)
+    to detect win_length consecutive stones of the same color.
+    
+    Parameters
+    ----------
+    board : numpy.ndarray
+        Board state as 2D NumPy array
+    x : int
+        Row coordinate of move
+    y : int
+        Column coordinate of move
+    color : int
+        Stone color to check
+    win_length : int, optional
+        Number of consecutive stones needed to win (default: 6)
+        
+    Returns
+    -------
+    bool
+        True if the move creates a winning sequence, False otherwise
+    """
     N = board.shape[0]
     directions = np.array([
         (1, 0),   # vertical
